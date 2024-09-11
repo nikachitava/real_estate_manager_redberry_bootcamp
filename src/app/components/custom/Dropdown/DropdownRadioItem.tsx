@@ -11,7 +11,7 @@ const DropdownRadioItem: React.FC<IDropdownItem> = ({ title }) => {
 				type="checkbox"
 				className="w-5 h-5 accent-[#45A849] rounded-[2px] "
 			/>
-			<span>{title}</span>
+			<span className="text-lighttext text-[14px]">{title}</span>
 		</div>
 	);
 };

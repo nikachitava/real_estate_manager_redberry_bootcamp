@@ -31,22 +31,39 @@ const AreaContent = () => {
 					/>
 				</div>
 			</div>
+
 			<div className="flex justify-between items-center">
 				<div className="flex-1">
-					<h1>მინ. მ&#178;</h1>
-					<p>50, 000მ&#178;</p>
-					<p>100, 000მ&#178;</p>
-					<p>150, 000მ&#178;</p>
-					<p>200, 000მ&#178;</p>
-					<p>250, 000მ&#178;</p>
+					<h1 className="font-bold text-darktext">მინ. ფასი</h1>
+					<p className="text-lighttext text-[14px]">50, 000მ&#178;</p>
+					<p className="text-lighttext text-[14px]">
+						100, 000მ&#178;
+					</p>
+					<p className="text-lighttext text-[14px]">
+						150, 000მ&#178;
+					</p>
+					<p className="text-lighttext text-[14px]">
+						200, 000მ&#178;
+					</p>
+					<p className="text-lighttext text-[14px]">
+						250, 000მ&#178;
+					</p>
 				</div>
 				<div className="flex-1">
-					<h1>მაქს. მ&#178;</h1>
-					<p>50, 000მ&#178;</p>
-					<p>100, 000მ&#178;</p>
-					<p>150, 000მ&#178;</p>
-					<p>200, 000მ&#178;</p>
-					<p>250, 000მ&#178;</p>
+					<h1 className="font-bold text-darktext">მაქს. ფასი</h1>
+					<p className="text-lighttext text-[14px]">50, 000მ&#178;</p>
+					<p className="text-lighttext text-[14px]">
+						100, 000მ&#178;
+					</p>
+					<p className="text-lighttext text-[14px]">
+						150, 000მ&#178;
+					</p>
+					<p className="text-lighttext text-[14px]">
+						200, 000მ&#178;
+					</p>
+					<p className="text-lighttext text-[14px]">
+						250, 000მ&#178;
+					</p>
 				</div>
 			</div>
 		</div>
