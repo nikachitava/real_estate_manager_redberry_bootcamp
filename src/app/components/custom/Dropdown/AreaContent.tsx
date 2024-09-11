@@ -6,29 +6,19 @@ const AreaContent = () => {
 		<div className="absolute min-w-[382px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white">
 			<h1>ფასების მიხედვით</h1>
 			<div className="flex items-center gap-[15px]">
-				<div className="flex justify-between items-center w-[155px] border-2 border-black p-[10px]">
+				<div className="flex justify-between items-center w-[155px] border-2 border-[#808A93] p-[10px] rounded-md">
 					<input
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
 					/>
-					<Image
-						src="/images/icons/gel-currency-icon.svg"
-						width={8}
-						height={14}
-						alt="gel-currency"
-					/>
+					<span>მ&#178;</span>
 				</div>
-				<div className="flex justify-between items-center w-[155px] border-2 border-black p-[10px]">
+				<div className="flex justify-between items-center w-[155px] border-2 border-[#808A93] p-[10px] rounded-md">
 					<input
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
 					/>
-					<Image
-						src="/images/icons/gel-currency-icon.svg"
-						width={8}
-						height={14}
-						alt="gel-currency"
-					/>
+					<span>მ&#178;</span>
 				</div>
 			</div>
 

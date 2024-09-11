@@ -3,6 +3,7 @@ import DropDown from "./Dropdown/DropDown";
 import RegionsContent from "./Dropdown/RegionsContent";
 import AreaContent from "./Dropdown/AreaContent";
 import PricesContent from "./Dropdown/PricesContent";
+import RoomsNumberContent from "./Dropdown/RoomsNumberContent";
 
 const Filter = () => {
 	return (
@@ -18,7 +19,7 @@ const Filter = () => {
 					<AreaContent />
 				</DropDown>
 				<DropDown title="საძინებლების რაოდენობა">
-					<RegionsContent />
+					<RoomsNumberContent />
 				</DropDown>
 			</div>
 		</div>
