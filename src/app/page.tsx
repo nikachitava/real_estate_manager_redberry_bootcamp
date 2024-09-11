@@ -1,11 +1,13 @@
 import React from "react";
 import Filter from "./components/custom/Filter";
+import EstatesSection from "./sections/EstatesSection";
 
 const page = () => {
 	return (
-		<section>
+		<main>
 			<Filter />
-		</section>
+			<EstatesSection />
+		</main>
 	);
 };
 
