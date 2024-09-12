@@ -8,7 +8,7 @@ interface ICustomInputProps {
 
 const CustomInput: React.FC<ICustomInputProps> = ({ header, label }) => {
 	return (
-		<div className="flex flex-col ">
+		<div className="flex flex-col gap-2">
 			<p className="medium-text text-greytext">{header}</p>
 			<input className="p-[10px] border-[1px] border-[#808A93] rounded-[6px] outline-none" />
 			<div className="flex items-center gap-2">

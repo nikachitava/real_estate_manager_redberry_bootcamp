@@ -1,6 +1,7 @@
 import React from "react";
 import CustomInput from "../components/custom/CustomInput";
 import { IoCheckmarkSharp } from "react-icons/io5";
+import CustomButtom from "../components/custom/CustomButtom";
 
 const page = () => {
 	return (
@@ -8,7 +9,7 @@ const page = () => {
 			<h1 className="text-center text-greytext text-[32px] font-medium">
 				ლისტინგის დამატება
 			</h1>
-			<form className="max-w-[790px] mx-auto flex flex-col gap-20 bg-red-200 my-16">
+			<form className="max-w-[790px] mx-auto flex flex-col gap-20  my-16">
 				<div className="flex flex-col gap-2">
 					<h1 className="medium-text">გარიგების ტიპი</h1>
 					<div className="flex items-center gap-[84px]">
@@ -19,11 +20,12 @@ const page = () => {
 										name="rental_status"
 										type="radio"
 										className="peer custom-radio"
+										checked
 									/>
 									<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 								</label>
 								<label className="ml-2 text-slate-600 cursor-pointer text-sm">
-									HTML
+									იყიდება
 								</label>
 							</div>
 						</div>
@@ -37,13 +39,13 @@ const page = () => {
 								<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 							</label>
 							<label className="ml-2 text-slate-600 cursor-pointer text-sm">
-								HTML
+								ქირავდება
 							</label>
 						</div>
 					</div>
 				</div>
 				<div className="flex flex-col gap-5">
-					<h1 className="medium-text">მდებარეობა*</h1>
+					<h1 className="medium-text">მდებარეობა</h1>
 
 					<div className="grid grid-cols-2 gap-4">
 						<CustomInput
@@ -51,7 +53,7 @@ const page = () => {
 							label={"მინიმუმ ორი სიმბოლო"}
 						/>
 						<CustomInput
-							header={"საფოსტო ინდექსი"}
+							header={"საფოსტო ინდექსი*"}
 							label={"მხოლოდ რიცხვები"}
 						/>
 					</div>
@@ -73,8 +75,7 @@ const page = () => {
 							label={"მხოლოდ რიცხვები"}
 						/>
 					</div>
-				</div>
-				<div className="flex flex-col gap-5">
+
 					<div className="flex flex-col gap-2">
 						<h1 className="medium-text">აღწერა*</h1>
 
@@ -138,6 +139,10 @@ const page = () => {
 							label={"მხოლოდ რიცხვები"}
 						/>
 					</div>
+				</div>
+				<div className="flex items-center justify-end gap-4 mt-">
+					<CustomButtom title={"გაუქმება"} fill={false} />
+					<CustomButtom title={"დაამატე ლისტინგი"} fill />
 				</div>
 			</form>
 		</div>
