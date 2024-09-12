@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		domains: ["api.real-estate-manager.redberryinternship.ge"],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "api.real-estate-manager.redberryinternship.ge",
+				pathname: "**",
+			},
+		],
 	},
-	
 };
 
 export default nextConfig;

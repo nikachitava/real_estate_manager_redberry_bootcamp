@@ -5,3 +5,15 @@
 body {
 	font-family: Arial, Helvetica, sans-serif;
 }
+
+.small-text {
+	@apply text-darktext text-[14px];
+}
+
+.medium-text {
+	@apply text-darktext font-medium text-[#1A1A1F];
+}
+
+.custom-radio {
+	@apply h-4 w-4 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all;
+}
