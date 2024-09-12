@@ -17,3 +17,7 @@ body {
 .custom-radio {
 	@apply h-4 w-4 cursor-pointer appearance-none rounded-full border border-slate-300 checked:border-slate-400 transition-all;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}

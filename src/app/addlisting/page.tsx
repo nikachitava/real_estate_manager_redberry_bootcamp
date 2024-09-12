@@ -2,6 +2,7 @@ import React from "react";
 import CustomInput from "../components/custom/CustomInput";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import CustomButtom from "../components/custom/CustomButtom";
+import CustomdropDown from "../components/custom/CustomdropDown";
 
 const page = () => {
 	return (
@@ -24,7 +25,7 @@ const page = () => {
 									/>
 									<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 								</label>
-								<label className="ml-2 text-slate-600 cursor-pointer text-sm">
+								<label className="ml-2  cursor-pointer small-text">
 									იყიდება
 								</label>
 							</div>
@@ -38,7 +39,7 @@ const page = () => {
 								/>
 								<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 							</label>
-							<label className="ml-2 text-slate-600 cursor-pointer text-sm">
+							<label className="ml-2  cursor-pointer small-text">
 								ქირავდება
 							</label>
 						</div>
@@ -56,6 +57,10 @@ const page = () => {
 							header={"საფოსტო ინდექსი*"}
 							label={"მხოლოდ რიცხვები"}
 						/>
+					</div>
+					<div className="grid grid-cols-2 gap-4">
+						<CustomdropDown addAgent={false} header="რეგიონი" />
+						<CustomdropDown addAgent={false} header="ქალაქი" />
 					</div>
 				</div>
 				<div className="flex flex-col gap-5">
@@ -90,7 +95,7 @@ const page = () => {
 							</label>
 						</div>
 					</div>
-					<div className="">
+					<div className="flex flex-col gap-2">
 						<h1 className="medium-text">ატვირთეთ ფოტო*</h1>
 						<label htmlFor="dropzone-file">
 							<div className="h-[157px] flex justify-center items-center border-[1px] border-dashed border-[#808A93] cursor-pointer">
@@ -134,10 +139,7 @@ const page = () => {
 					<h1 className="medium-text">აგენტი</h1>
 
 					<div className="grid grid-cols-2 gap-4">
-						<CustomInput
-							header={"აირჩიე"}
-							label={"მხოლოდ რიცხვები"}
-						/>
+						<CustomdropDown addAgent={true} header="აირჩიე" />
 					</div>
 				</div>
 				<div className="flex items-center justify-end gap-4 mt-">

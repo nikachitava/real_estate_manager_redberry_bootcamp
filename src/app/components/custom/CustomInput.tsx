@@ -16,7 +16,7 @@ const CustomInput: React.FC<ICustomInputProps> = ({ header, label }) => {
 					size={20}
 					className="font-bold text-greytext"
 				/>
-				<label className="small-text">{label}</label>
+				<span className="small-text">{label}</span>
 			</div>
 		</div>
 	);
