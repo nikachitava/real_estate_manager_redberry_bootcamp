@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Card = () => {
 	return (
-		<div className="relative w-[384px]">
+		<div className="relative w-[384px] rounded-[14px]">
 			<div className="absolute text-white font-medium text-[14px] bg-[#02152680] top-5 left-5 p-[6px] rounded-[15px]">
 				ქირავდება
 			</div>
@@ -12,7 +12,6 @@ const Card = () => {
 				width={384}
 				height={307}
 				alt="cover"
-				className="cover-fit"
 			/>
 			<div className="flex flex-col gap-5 bg-white border-x-[1px] border-b-[1px] border-[#DBDBDB] rounded-b-[14px] px-[25px] py-[22px]">
 				<div className="flex flex-col gap-[6px]">

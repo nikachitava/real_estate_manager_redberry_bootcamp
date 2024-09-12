@@ -1,12 +1,5 @@
+import { ICustomButtomProps } from "@/app/interface/ICustomButtomProps";
 import React from "react";
-
-interface ICustomButtomProps {
-	title: string;
-	onClick?: () => void;
-	otherStyles?: string;
-	icon?: JSX.Element;
-	fill: boolean;
-}
 
 const CustomButtom: React.FC<ICustomButtomProps> = ({
 	title,
