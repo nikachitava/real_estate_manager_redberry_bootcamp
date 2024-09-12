@@ -1,22 +1,34 @@
 import React from "react";
 import Image from "next/image";
+import { IRealEstateCard } from "@/app/interface/IRealEstateCard";
 
-const Card = () => {
+const Card: React.FC<IRealEstateCard> = ({
+	id,
+	address,
+	zip_code,
+	price,
+	area,
+	bedrooms,
+	is_rental,
+	image,
+	city,
+}) => {
 	return (
-		<div className="relative w-[384px] rounded-[14px]">
+		<div className="relative w-[384px] rounded-[14px]" key={id}>
 			<div className="absolute text-white font-medium text-[14px] bg-[#02152680] top-5 left-5 p-[6px] rounded-[15px]">
-				ქირავდება
+				{is_rental ? "ქირავდება" : "იყიდება"}
 			</div>
 			<Image
-				src="/images/cover.svg"
+				src={image}
 				width={384}
 				height={307}
 				alt="cover"
+				className="object-fill rounded-t-[14px] h-[307px]"
 			/>
 			<div className="flex flex-col gap-5 bg-white border-x-[1px] border-b-[1px] border-[#DBDBDB] rounded-b-[14px] px-[25px] py-[22px]">
 				<div className="flex flex-col gap-[6px]">
 					<h1 className="font-bold text-darktext text-2xl">
-						80 000L
+						{price} ₾
 					</h1>
 					<div className="flex items-center gap-2">
 						<Image
@@ -26,7 +38,7 @@ const Card = () => {
 							alt="cover"
 						/>
 						<span className="text-greytext">
-							თბილისი, ი. ჭავჭავაძის 53
+							{`${city.name}, ${address}`}
 						</span>
 					</div>
 				</div>
@@ -38,7 +50,7 @@ const Card = () => {
 							height={24}
 							alt="cover"
 						/>
-						<span className="text-greytext">2</span>
+						<span className="text-greytext">{bedrooms}</span>
 					</div>
 					<div className="flex items-center gap-2">
 						<Image
@@ -47,7 +59,7 @@ const Card = () => {
 							height={24}
 							alt="cover"
 						/>
-						<span className="text-greytext">55მ&#178;</span>
+						<span className="text-greytext">{area} მ&#178;</span>
 					</div>
 					<div className="flex items-center gap-2">
 						<Image
@@ -56,7 +68,7 @@ const Card = () => {
 							height={24}
 							alt="cover"
 						/>
-						<span className="text-greytext">4400</span>
+						<span className="text-greytext">{zip_code}</span>
 					</div>
 				</div>
 			</div>
