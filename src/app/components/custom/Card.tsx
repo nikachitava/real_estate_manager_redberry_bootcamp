@@ -3,7 +3,6 @@ import Image from "next/image";
 import { IRealEstateCard } from "@/app/interface/IRealEstateCard";
 
 const Card: React.FC<IRealEstateCard> = ({
-	id,
 	address,
 	zip_code,
 	price,
@@ -14,7 +13,7 @@ const Card: React.FC<IRealEstateCard> = ({
 	city,
 }) => {
 	return (
-		<div className="relative w-[384px] rounded-[14px]" key={id}>
+		<div className="relative w-[384px] rounded-[14px]">
 			<div className="absolute text-white font-medium text-[14px] bg-[#02152680] top-5 left-5 p-[6px] rounded-[15px]">
 				{is_rental ? "ქირავდება" : "იყიდება"}
 			</div>
