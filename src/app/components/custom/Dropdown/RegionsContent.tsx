@@ -3,7 +3,7 @@ import DropdownRadioItem from "./DropdownRadioItem";
 
 const DropdownContent = () => {
 	return (
-		<div className="absolute min-w-[731px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white">
+		<div className="absolute min-w-[731px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white z-10">
 			<h1 className="font-bold text-darktext">რეგიონების მიხედვით</h1>
 			<div className="grid grid-cols-3 gap-4">
 				<DropdownRadioItem title="თბილისი" />

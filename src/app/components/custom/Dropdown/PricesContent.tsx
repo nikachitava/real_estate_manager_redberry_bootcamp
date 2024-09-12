@@ -3,7 +3,7 @@ import React from "react";
 
 const PricesContent = () => {
 	return (
-		<div className="absolute min-w-[382px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white">
+		<div className="absolute min-w-[382px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white z-10">
 			<h1 className="text-darktext font-bold">ფასის მიხედვით</h1>
 			<div className="flex items-center gap-[15px]">
 				<div className="flex justify-between items-center w-[155px] border-2 border-[#808A93] p-[10px] rounded-md">
