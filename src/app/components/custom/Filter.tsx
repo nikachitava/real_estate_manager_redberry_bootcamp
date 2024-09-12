@@ -7,6 +7,7 @@ import RoomsNumberContent from "./Dropdown/RoomsNumberContent";
 import CustomButtom from "./CustomButtom";
 import { IoMdAdd } from "react-icons/io";
 import FilterBar from "./FilterBar";
+import Link from "next/link";
 
 const Filter = () => {
 	return (
@@ -27,12 +28,14 @@ const Filter = () => {
 					</DropDown>
 				</div>
 				<div className="flex items-center gap-4">
-					<CustomButtom
-						title={"ლისტინგის დამატება"}
-						icon={<IoMdAdd size={24} />}
-						fill
-						otherStyles="flex gap-2 items-center"
-					/>
+					<Link href="/addlisting">
+						<CustomButtom
+							title={"ლისტინგის დამატება"}
+							icon={<IoMdAdd size={24} />}
+							fill
+							otherStyles="flex gap-2 items-center"
+						/>
+					</Link>
 					<CustomButtom
 						title={"აგენტის დამატება"}
 						icon={<IoMdAdd size={24} />}
