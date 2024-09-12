@@ -1,5 +1,5 @@
-import Image from "next/image";
 import React from "react";
+import CustomButtom from "../CustomButtom";
 
 const AreaContent = () => {
 	return (
@@ -55,6 +55,9 @@ const AreaContent = () => {
 						250, 000მ&#178;
 					</p>
 				</div>
+			</div>
+			<div className="flex justify-end items-center">
+				<CustomButtom title={"არჩევა"} fill />
 			</div>
 		</div>
 	);

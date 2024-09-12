@@ -1,4 +1,5 @@
 import React from "react";
+import CustomButtom from "../CustomButtom";
 
 const RoomsNumberContent = () => {
 	return (
@@ -20,6 +21,9 @@ const RoomsNumberContent = () => {
 				<div className="w-10 h-10 flex justify-center items-center rounded-md border-[1px] border-[#808A93] text-greytext cursor-pointer">
 					5
 				</div>
+			</div>
+			<div className="flex justify-end items-center">
+				<CustomButtom title={"არჩევა"} fill />
 			</div>
 		</div>
 	);

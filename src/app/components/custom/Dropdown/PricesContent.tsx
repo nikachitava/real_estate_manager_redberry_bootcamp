@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import CustomButtom from "../CustomButtom";
 
 const PricesContent = () => {
 	return (
@@ -48,6 +49,9 @@ const PricesContent = () => {
 					<p className="text-lighttext text-[14px]">200, 000$</p>
 					<p className="text-lighttext text-[14px]">250, 000$</p>
 				</div>
+			</div>
+			<div className="flex justify-end items-center">
+				<CustomButtom title={"არჩევა"} fill />
 			</div>
 		</div>
 	);

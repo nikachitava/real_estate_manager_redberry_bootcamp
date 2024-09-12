@@ -1,5 +1,6 @@
 import React from "react";
 import DropdownRadioItem from "./DropdownRadioItem";
+import CustomButtom from "../CustomButtom";
 
 const DropdownContent = () => {
 	return (
@@ -20,6 +21,9 @@ const DropdownContent = () => {
 				<DropdownRadioItem title="თბილისი" />
 				<DropdownRadioItem title="თბილისი" />
 				<DropdownRadioItem title="თბილისი" />
+			</div>
+			<div className="flex justify-end items-center">
+				<CustomButtom title={"არჩევა"} fill />
 			</div>
 		</div>
 	);
