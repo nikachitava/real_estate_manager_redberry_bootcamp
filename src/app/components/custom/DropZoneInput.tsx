@@ -1,9 +1,13 @@
 import React from "react";
 
-const DropZoneInput = () => {
+interface IDropZoneInputProps {
+	header: string;
+}
+
+const DropZoneInput: React.FC<IDropZoneInputProps> = ({ header }) => {
 	return (
 		<div className="flex flex-col gap-2">
-			<h1 className="medium-text">ატვირთეთ ფოტო*</h1>
+			<h1 className="medium-text">{header}</h1>
 			<label htmlFor="dropzone-file">
 				<div className="h-[157px] flex justify-center items-center border-[1px] border-dashed border-[#808A93] cursor-pointer">
 					<svg
