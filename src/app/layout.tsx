@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/custom/Navbar";
+import { ModalProvider } from "./context/ModalProvider";
 
 const firaGo = localFont({
 	src: [
@@ -36,8 +37,10 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={`${firaGo.className} antialiased`}>
-				<Navbar />
-				{children}
+				<ModalProvider>
+					<Navbar />
+					{children}
+				</ModalProvider>
 			</body>
 		</html>
 	);

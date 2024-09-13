@@ -23,7 +23,9 @@ const config: Config = {
 			screens: {
 				"2xl": "1920px",
 			},
-            
+            boxShadow: {
+				'custom': '5px 5px 4px 0px #00000014',
+			},
 			colors: {
 				darktext: "#021526",
 				lighttext: "#2D3648",

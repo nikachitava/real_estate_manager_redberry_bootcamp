@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import DropDown from "./Dropdown/DropDown";
 import RegionsContent from "./Dropdown/RegionsContent";
 import AreaContent from "./Dropdown/AreaContent";
@@ -8,8 +8,11 @@ import CustomButtom from "./CustomButtom";
 import { IoMdAdd } from "react-icons/io";
 import FilterBar from "./FilterBar";
 import Link from "next/link";
+import { ModalContext } from "@/app/context/ModalProvider";
 
 const Filter = () => {
+	const { handleModal } = useContext(ModalContext);
+
 	return (
 		<div className="container">
 			<div className="flex justify-between items-center">
@@ -41,6 +44,7 @@ const Filter = () => {
 						icon={<IoMdAdd size={24} />}
 						fill={false}
 						otherStyles="flex gap-2 items-center"
+						onClick={handleModal}
 					/>
 				</div>
 			</div>
