@@ -6,22 +6,13 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 import CustomButtom from "../components/custom/CustomButtom";
 import CustomdropDown from "../components/custom/CustomdropDown";
 import DropZoneInput from "../components/custom/DropZoneInput";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { makeRequest } from "../utils/axios";
+import { AddListingFormSchema } from "../FormSchemas/AddListingFormSchema";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-type FormFields = {
-	address: string;
-	image: string;
-	region_id: number;
-	description: string;
-	city_id: number;
-	zip_code: string;
-	price: number;
-	area: number;
-	bedrooms: number;
-	is_rental: number;
-	agent_id: number;
-};
+type FormFields = z.infer<typeof AddListingFormSchema>;
 
 type TypeRegions = {
 	id: number;
@@ -33,8 +24,9 @@ type TypeCities = TypeRegions & {
 };
 
 const page = () => {
-	const { register, handleSubmit, setValue, watch, control } =
-		useForm<FormFields>();
+	const { register, handleSubmit, setValue, watch } = useForm<FormFields>({
+		resolver: zodResolver(AddListingFormSchema),
+	});
 	const [regions, setRegions] = useState<TypeRegions[]>([]);
 	const [cities, setCities] = useState<TypeCities[]>([]);
 
@@ -67,8 +59,6 @@ const page = () => {
 
 	const selectedRegion = watch("region_id");
 	const selectedCity = watch("city_id");
-
-	console.log(cities);
 
 	const filteredCities = cities.filter(
 		(city) => city.region_id === selectedRegion
