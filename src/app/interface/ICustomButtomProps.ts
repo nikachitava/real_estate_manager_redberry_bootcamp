@@ -4,4 +4,5 @@ export interface ICustomButtomProps {
 	otherStyles?: string;
 	icon?: JSX.Element;
 	fill: boolean;
+	type?: "button" | "submit" | "reset"; 
 }

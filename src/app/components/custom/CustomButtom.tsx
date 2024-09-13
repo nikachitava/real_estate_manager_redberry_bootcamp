@@ -7,19 +7,21 @@ const CustomButtom: React.FC<ICustomButtomProps> = ({
 	otherStyles,
 	icon,
 	fill,
+	type,
 }) => {
 	return (
-		<div
+		<button
 			className={`${
 				fill
 					? "bg-orange text-white hover:bg-[#DF3014]"
 					: "border-orange text-orange hover:bg-orange hover:text-white"
 			} border-[1px] border-orange py-[10px] px-4 rounded-[10px] cursor-pointer font-medium ${otherStyles}`}
 			onClick={onClick}
+			type={type}
 		>
 			{icon}
 			{title}
-		</div>
+		</button>
 	);
 };
 

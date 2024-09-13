@@ -44,7 +44,7 @@ const AddAgentModal: React.FC<IModalProps> = ({ open, onClose }) => {
 							label={"მხოლოდ რიცხვები"}
 						/>
 					</div>
-					<DropZoneInput />
+					<DropZoneInput header={"ddddddddddddddddddddddqw!@"} />
 					<div className="flex items-center justify-end gap-2 mt-[66px]">
 						<CustomButtom
 							title={"გაუქმება"}

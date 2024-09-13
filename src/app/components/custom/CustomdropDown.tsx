@@ -7,11 +7,16 @@ import AddAgentItem from "./Dropdown/AddAgentItem";
 interface ICustomdropDownProps {
 	addAgent: boolean;
 	header: string;
+	dropdownelemets?: { id: number; name: string }[] | null;
+	onChange?: (value: number) => void;
+	value: string | number;
 }
 
 const CustomdropDown: React.FC<ICustomdropDownProps> = ({
 	addAgent,
 	header,
+	dropdownelemets,
+	onChange,
 }) => {
 	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -38,6 +43,13 @@ const CustomdropDown: React.FC<ICustomdropDownProps> = ({
 		};
 	}, []);
 
+	const [currentOption, setCurrentOption] = useState<string>("აირჩიე");
+
+	const chooseOption = (id: number, name: string) => {
+		setCurrentOption(name);
+		onChange && onChange(id);
+	};
+
 	return (
 		<div
 			className="relative flex flex-col gap-2 cursor-pointer"
@@ -46,9 +58,9 @@ const CustomdropDown: React.FC<ICustomdropDownProps> = ({
 		>
 			<p className="medium-text text-greytext">{header}</p>
 			<div className="flex justify-between items-center p-[10px] border-[1px] border-[#808A93] rounded-[6px]">
-				asd
+				{currentOption}
 				{isDropDownOpen ? (
-					<RiArrowDropUpLine scale={24} />
+					<RiArrowDropUpLine size={24} />
 				) : (
 					<RiArrowDropDownLine size={24} />
 				)}
@@ -57,24 +69,18 @@ const CustomdropDown: React.FC<ICustomdropDownProps> = ({
 			{isDropDownOpen && (
 				<div className="absolute w-full max-h-[168px] bg-white border-[1px] border-[#808A93] rounded-b-[6px] z-10 top-16 overflow-y-scroll scrollbar-hide">
 					{addAgent && <AddAgentItem />}
-					<div className="p-[10px] border-b-[1px] border-[#808A93] small-text">
-						იმერეთი
-					</div>
-					<div className="p-[10px] border-b-[1px] border-[#808A93] small-text">
-						იმერეთი
-					</div>
-					<div className="p-[10px] border-b-[1px] border-[#808A93] small-text">
-						იმერეთი
-					</div>
-					<div className="p-[10px] border-b-[1px] border-[#808A93] small-text">
-						იმერეთი
-					</div>
-					<div className="p-[10px] border-b-[1px] border-[#808A93] small-text">
-						იმერეთი
-					</div>
-					<div className="p-[10px] border-b-[1px] border-[#808A93] small-text">
-						იმერეთი
-					</div>
+					{dropdownelemets &&
+						dropdownelemets.map((region) => (
+							<div
+								className="p-[10px] border-b-[1px] border-[#808A93] small-text"
+								key={region.id}
+								onClick={() =>
+									chooseOption(region.id, region.name)
+								}
+							>
+								{region.name}
+							</div>
+						))}
 				</div>
 			)}
 		</div>

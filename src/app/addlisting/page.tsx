@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CustomInput from "../components/custom/CustomInput";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import CustomButtom from "../components/custom/CustomButtom";
 import CustomdropDown from "../components/custom/CustomdropDown";
 import DropZoneInput from "../components/custom/DropZoneInput";
-import { useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { makeRequest } from "../utils/axios";
 
 type FormFields = {
 	address: string;
@@ -18,19 +19,70 @@ type FormFields = {
 	price: number;
 	area: number;
 	bedrooms: number;
-	is_rental: number; // +
+	is_rental: number;
 	agent_id: number;
 };
 
+type TypeRegions = {
+	id: number;
+	name: string;
+};
+
+type TypeCities = TypeRegions & {
+	region_id: number;
+};
+
 const page = () => {
-	const { register } = useForm<FormFields>();
+	const { register, handleSubmit, setValue, watch, control } =
+		useForm<FormFields>();
+	const [regions, setRegions] = useState<TypeRegions[]>([]);
+	const [cities, setCities] = useState<TypeCities[]>([]);
+
+	const fetchRegions = async () => {
+		try {
+			const response = await makeRequest.get("/regions");
+			setRegions(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const fetchCities = async () => {
+		try {
+			const response = await makeRequest.get("/cities");
+			setCities(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		fetchRegions();
+		fetchCities();
+	}, []);
+
+	const onSubmit: SubmitHandler<FormFields> = (data) => {
+		console.log("data: ", data);
+	};
+
+	const selectedRegion = watch("region_id");
+	const selectedCity = watch("city_id");
+
+	console.log(cities);
+
+	const filteredCities = cities.filter(
+		(city) => city.region_id === selectedRegion
+	);
 
 	return (
 		<div className="container">
 			<h1 className="text-center text-greytext text-[32px] font-medium">
 				ლისტინგის დამატება
 			</h1>
-			<form className="max-w-[790px] mx-auto flex flex-col gap-20  my-16">
+			<form
+				className="max-w-[790px] mx-auto flex flex-col gap-20  my-16"
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<div className="flex flex-col gap-2">
 					<h1 className="medium-text">გარიგების ტიპი</h1>
 					<div className="flex items-center gap-[84px]">
@@ -72,24 +124,30 @@ const page = () => {
 						<CustomInput
 							header={"მისამართი*"}
 							label={"მინიმუმ ორი სიმბოლო"}
-							{...register("address")}
+							register={register}
+							name="address"
 						/>
 						<CustomInput
 							header={"საფოსტო ინდექსი*"}
 							label={"მხოლოდ რიცხვები"}
-							{...register("zip_code")}
+							register={register}
+							name="zip_code"
 						/>
 					</div>
 					<div className="grid grid-cols-2 gap-4">
 						<CustomdropDown
 							addAgent={false}
 							header="რეგიონი"
-							{...register("region_id")}
+							dropdownelemets={regions}
+							value={selectedRegion}
+							onChange={(value) => setValue("region_id", value)}
 						/>
 						<CustomdropDown
 							addAgent={false}
 							header="ქალაქი"
-							{...register("city_id")}
+							dropdownelemets={filteredCities}
+							value={selectedCity}
+							onChange={(value) => setValue("city_id", value)}
 						/>
 					</div>
 				</div>
@@ -100,17 +158,21 @@ const page = () => {
 						<CustomInput
 							header={"ფასი"}
 							label={"მხოლოდ რიცხვები"}
-							{...register("price")}
+							register={register}
+							name="price"
 						/>
+
 						<CustomInput
 							header={"ფართობი"}
 							label={"მხოლოდ რიცხვები"}
-							{...register("area")}
+							register={register}
+							name="area"
 						/>
 						<CustomInput
 							header={"ოთახების რაოდენობა"}
 							label={"მხოლოდ რიცხვები"}
-							{...register("bedrooms")}
+							register={register}
+							name="bedrooms"
 						/>
 					</div>
 
@@ -143,13 +205,19 @@ const page = () => {
 						<CustomdropDown
 							addAgent={true}
 							header="აირჩიე"
-							{...register("agent_id")}
+							//change
+							value={selectedRegion || ""}
+							onChange={(value) => setValue("agent_id", value)}
 						/>
 					</div>
 				</div>
 				<div className="flex items-center justify-end gap-4 mt-">
 					<CustomButtom title={"გაუქმება"} fill={false} />
-					<CustomButtom title={"დაამატე ლისტინგი"} fill />
+					<CustomButtom
+						title={"დაამატე ლისტინგი"}
+						fill
+						type="submit"
+					/>
 				</div>
 			</form>
 		</div>
