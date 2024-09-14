@@ -16,20 +16,6 @@ type FormFields = z.infer<typeof AddListingFormSchema> & {
 	image: File | null;
 };
 
-// type FormFields = {
-// 	is_rental: boolean;
-// 	address: string;
-// 	zip_code: number;
-// 	region_id: number;
-// 	city_id: number;
-// 	price: number;
-// 	area: number;
-// 	bedrooms: number;
-// 	description: string;
-// 	image: File | null;
-// 	agent_id: number;
-// };
-
 type TypeRegions = {
 	id: number;
 	name: string;
@@ -111,7 +97,13 @@ const page = () => {
 			: "default";
 	};
 
+	const MAX_FILE_SIZE_MB = 1;
+	const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+
 	const handleFileChange = (file: File) => {
+		if (file.size > MAX_FILE_SIZE_BYTES) {
+			return;
+		}
 		setImageFile(file);
 	};
 
@@ -132,8 +124,8 @@ const page = () => {
 		formData.append("agent_id", data.agent_id.toString());
 
 		try {
-			await makeRequest.post("/real-estates", formData).then((res) => {
-				console.log("res:", res);
+			await makeRequest.post("/real-estates", formData).then(() => {
+				/* here must be redirect to created estate */
 			});
 		} catch (error) {
 			console.log(error);
@@ -275,8 +267,12 @@ const page = () => {
 
 					<CustomTextArea
 						header="აღწერა"
+						label={
+							errors.description
+								? errors.description.message
+								: "მინიმუმ ხუთი სიტყვა"
+						}
 						style={getInputStyle("description")}
-						label="მინიმუმ ხუთი სიტყვა"
 						register={register("description")}
 					/>
 					<DropZoneInput

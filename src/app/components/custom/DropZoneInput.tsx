@@ -4,12 +4,14 @@ interface IDropZoneInputProps {
 	header: string;
 	style?: "default" | "error" | "success";
 	onFileChange: (file: File) => void;
+	label?: string | null;
 }
 
 const DropZoneInput: React.FC<IDropZoneInputProps> = ({
 	header,
 	style = "default",
 	onFileChange,
+	label,
 }) => {
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
@@ -59,11 +61,19 @@ const DropZoneInput: React.FC<IDropZoneInputProps> = ({
 						id="dropzone-file"
 						type="file"
 						className="hidden"
-						// {...register}
 						onChange={handleFileChange}
 					/>
 				</div>
 			</label>
+
+			<span
+				className={`small-text 
+						${style === "default" && "text-darktext"}
+						${style === "error" && "!text-colorerror"} 
+						${style === "success" && "!text-colorsuccess"}`}
+			>
+				{label}
+			</span>
 		</div>
 	);
 };

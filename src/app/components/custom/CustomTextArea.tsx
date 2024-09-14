@@ -4,7 +4,7 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 
 interface ICustomTextAreaProps {
 	header: string;
-	label: string;
+	label?: string;
 	register: UseFormRegisterReturn;
 	style?: "default" | "error" | "success";
 }

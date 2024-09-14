@@ -1,22 +1,6 @@
 import { z } from "zod";
 
-const minWords = (min: number) => (value: string) => {
-	const wordCount = value.trim().split(/\s+/).length;
-	if (wordCount < min) {
-		return `მინიმუმ ${min} სიტყვა`;
-	}
-	return true;
-};
-
-const MAX_FILE_SIZE = 1 * 1024 * 1024;
-const ACCEPTED_IMAGE_TYPES = [
-	"image/jpeg",
-	"image/jpg",
-	"image/png",
-	"image/webp",
-];
-
-
+const MAX_SIZE_MB = 1024;
 
 export const AddListingFormSchema = z.object({
 	is_rental: z.preprocess((value) => {
@@ -26,14 +10,17 @@ export const AddListingFormSchema = z.object({
 		}
 		return value;
 	}, z.number()),
-	address: z.string().min(2, "მინიმუმ 2 სიმბოლო"),
+	address: z
+		.string()
+		.min(1, "მისამართის ველი სავალდებულოა")
+		.min(2, "მინიმუმ 2 სიმბოლო"),
 	zip_code: z.preprocess((value) => {
 		if (typeof value === "string") {
 			const numberValue = parseFloat(value);
 			return isNaN(numberValue) ? undefined : numberValue;
 		}
 		return value;
-	}, z.number({ required_error: "შეიყვანეთ მხოლოდ რიცხვები", invalid_type_error: "შეიყვანეთ მხოლოდ რიცხვები" })),
+	}, z.number({ required_error: "საფოსტო კოდის ველი სავალდებულოა", invalid_type_error: "შეიყვანეთ მხოლოდ რიცხვები" })),
 	region_id: z.number(),
 	city_id: z.number(),
 	price: z.preprocess((value) => {
@@ -42,7 +29,7 @@ export const AddListingFormSchema = z.object({
 			return isNaN(numberValue) ? undefined : numberValue;
 		}
 		return value;
-	}, z.number({ invalid_type_error: "შეიყვანეთ მხოლოდ რიცხვები" })),
+	}, z.number({ required_error: "ფასის ველი სავალდებულოა", invalid_type_error: "შეიყვანეთ მხოლოდ რიცხვები" })),
 	area: z.preprocess((value) => {
 		if (typeof value === "string") {
 			const numberValue = parseFloat(value);
@@ -56,9 +43,20 @@ export const AddListingFormSchema = z.object({
 			return isNaN(numberValue) ? undefined : numberValue;
 		}
 		return value;
-	}, z.number({ invalid_type_error: "შეიყვანეთ მხოლოდ მთელი რიცხვები" }).int({message:"მხოლოდ მთელი რიცხვები"})),
+	}, z.number({ invalid_type_error: "შეიყვანეთ მხოლოდ მთელი რიცხვები" }).int({ message: "მხოლოდ მთელი რიცხვები" })),
 	description: z
-		.string({ required_error: "აღწერა აუცილებელია" })
-		.refine(minWords(5), { message: "მინიმუმ 5 სიტყვა" }),
+		.string()
+		.min(1, "აღწერის ველი აუცილებელია")
+		.refine(
+			(text) => {
+				const wordCount = text
+					.split(/\s+/)
+					.filter((word) => word.trim().length > 0).length;
+				return wordCount >= 5;
+			},
+			{
+				message: "მინიმუმ ხუთი სიტყვა",
+			}
+		),
 	agent_id: z.number(),
 });
