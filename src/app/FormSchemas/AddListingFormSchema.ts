@@ -21,19 +21,27 @@ export const AddListingFormSchema = z.object({
 
 	region_id: z.number(),
 	city_id: z.number(),
-	price: z
-		.number()
-		.positive("შეიყვანეთ სწორი ფასი")
-		.min(0.01, "მინიმუმ 0.01"),
-	area: z
-		.number()
-		.positive("შეიყვანეთ სწორი ფართობი")
-		.min(0.01, "მინიმუმ 0.01"),
-	bedrooms: z
-		.number({ invalid_type_error: "მხოლოდ რიცხვები" })
-		.int("შეიყვანეთ მხოლოდ მთელი რიცხვები")
-		.positive("შეიყვანეთ სწორი რაოდენობა")
-		.min(1, "მინიმუმ 1"),
+	price: z.preprocess((value) => {
+		if (typeof value === "string") {
+			const numberValue = parseFloat(value);
+			return isNaN(numberValue) ? undefined : numberValue;
+		}
+		return value;
+	}, z.number({invalid_type_error: "შეიყვანეთ მხოლოდ რიცხვები"})),
+	area: z.preprocess((value) => {
+		if (typeof value === "string") {
+			const numberValue = parseFloat(value);
+			return isNaN(numberValue) ? undefined : numberValue;
+		}
+		return value;
+	}, z.number({invalid_type_error: "შეიყვანეთ მხოლოდ რიცხვები"})),
+	bedrooms: z.preprocess((value) => {
+		if (typeof value === "string") {
+			const numberValue = parseFloat(value);
+			return isNaN(numberValue) ? undefined : numberValue;
+		}
+		return value;
+	}, z.number({ invalid_type_error: "შეიყვანეთ მხოლოდ მთელი რიცხვები"})),
 	description: z
 		.string({ required_error: "აღწერა აუცილებელია" })
 		.refine(minWords(5), { message: "მინიმუმ 5 სიტყვა" }),

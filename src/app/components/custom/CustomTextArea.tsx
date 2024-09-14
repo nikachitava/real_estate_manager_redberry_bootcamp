@@ -17,19 +17,31 @@ const CustomTextArea: React.FC<ICustomTextAreaProps> = ({
 }) => {
 	return (
 		<div className="flex flex-col gap-2">
-			<h1 className="medium-text">აღწერა*</h1>
+			<h1 className="medium-text">{header}</h1>
 
 			<textarea
 				className={`h-[157px] outline-none p-[10px] rounded-[6px] border-[1px] border-[#808A93] resize-none 
-				`}
+                    ${style === "default" && "!border-[#808A93]"}
+					${style === "error" && "!border-colorerror"} 
+					${style === "success" && "!border-colorsuccess"}`}
 				{...register}
 			/>
 			<div className="flex items-center gap-2">
 				<IoCheckmarkSharp
 					size={20}
-					className="font-bold text-greytext"
+					className={`font-bold text-greytext 
+						${style === "default" && "!text-greytext"}
+						${style === "error" && "!text-colorerror"} 
+						${style === "success" && "!text-colorsuccess"}`}
 				/>
-				<label className="small-text">მინიმუმ ხუთი სიტყვა</label>
+				<span
+					className={`small-text 
+						${style === "default" && "text-darktext"}
+						${style === "error" && "!text-colorerror"} 
+						${style === "success" && "!text-colorsuccess"}`}
+				>
+					{label}
+				</span>
 			</div>
 		</div>
 	);

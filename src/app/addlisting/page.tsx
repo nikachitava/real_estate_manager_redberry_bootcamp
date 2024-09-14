@@ -29,6 +29,7 @@ const page = () => {
 		handleSubmit,
 		setValue,
 		watch,
+		setError,
 		formState: { errors, touchedFields },
 	} = useForm<FormFields>({
 		resolver: zodResolver(AddListingFormSchema),
@@ -73,7 +74,7 @@ const page = () => {
 
 	const getInputStyle = (fieldName: keyof FormFields) => {
 		if (errors[fieldName]) return "error";
-		if (touchedFields[fieldName]) return "success";
+		if (touchedFields[fieldName] && !errors[fieldName]) return "success";
 		return "default";
 	};
 
@@ -95,6 +96,7 @@ const page = () => {
 									<input
 										type="radio"
 										className="peer custom-radio"
+										value={0}
 										checked
 										{...register("is_rental")}
 									/>
@@ -110,6 +112,7 @@ const page = () => {
 								<input
 									type="radio"
 									className="peer custom-radio"
+									value={1}
 									{...register("is_rental")}
 								/>
 								<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
@@ -202,6 +205,7 @@ const page = () => {
 
 					<CustomTextArea
 						header="აღწერა"
+						style={getInputStyle("bedrooms")}
 						label="მინიმუმ ხუთი სიტყვა"
 						register={register("description")}
 					/>
