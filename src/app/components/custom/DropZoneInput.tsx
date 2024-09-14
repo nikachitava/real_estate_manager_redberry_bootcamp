@@ -1,17 +1,22 @@
 import React from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
 
 interface IDropZoneInputProps {
 	header: string;
-	register: UseFormRegisterReturn;
 	style?: "default" | "error" | "success";
+	onFileChange: (file: File) => void;
 }
 
 const DropZoneInput: React.FC<IDropZoneInputProps> = ({
 	header,
-	register,
 	style = "default",
+	onFileChange,
 }) => {
+	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
+		if (file) {
+			onFileChange(file);
+		}
+	};
 	return (
 		<div className="flex flex-col gap-2">
 			<h1 className="medium-text">{header}</h1>
@@ -54,7 +59,8 @@ const DropZoneInput: React.FC<IDropZoneInputProps> = ({
 						id="dropzone-file"
 						type="file"
 						className="hidden"
-						{...register}
+						// {...register}
+						onChange={handleFileChange}
 					/>
 				</div>
 			</label>

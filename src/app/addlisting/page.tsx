@@ -12,7 +12,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomTextArea from "../components/custom/CustomTextArea";
 
-type FormFields = z.infer<typeof AddListingFormSchema>;
+type FormFields = z.infer<typeof AddListingFormSchema> & {
+	image: File | null;
+};
 
 // type FormFields = {
 // 	is_rental: boolean;
@@ -24,7 +26,7 @@ type FormFields = z.infer<typeof AddListingFormSchema>;
 // 	area: number;
 // 	bedrooms: number;
 // 	description: string;
-// 	image: string;
+// 	image: File | null;
 // 	agent_id: number;
 // };
 
@@ -58,6 +60,7 @@ const page = () => {
 	const [regions, setRegions] = useState<TypeRegions[]>([]);
 	const [cities, setCities] = useState<TypeCities[]>([]);
 	const [agents, setAgents] = useState<TypeAgents[]>([]);
+	const [imageFile, setImageFile] = useState<File | null>(null);
 
 	const fetchRegions = async () => {
 		try {
@@ -92,10 +95,6 @@ const page = () => {
 		fetchAgents();
 	}, []);
 
-	const onSubmit: SubmitHandler<FormFields> = (data) => {
-		console.log("data: ", data);
-	};
-
 	const selectedRegion = watch("region_id");
 	const selectedCity = watch("city_id");
 	const selectedAgent = watch("agent_id");
@@ -105,9 +104,40 @@ const page = () => {
 	);
 
 	const getInputStyle = (fieldName: keyof FormFields) => {
-		if (errors[fieldName]) return "error";
-		if (touchedFields[fieldName] && !errors[fieldName]) return "success";
-		return "default";
+		return errors[fieldName]
+			? "error"
+			: touchedFields[fieldName]
+			? "success"
+			: "default";
+	};
+
+	const handleFileChange = (file: File) => {
+		setImageFile(file);
+	};
+
+	const onSubmit: SubmitHandler<FormFields> = async (data) => {
+		const formData = new FormData();
+		formData.append("is_rental", data.is_rental.toString());
+		formData.append("address", data.address);
+		formData.append("zip_code", data.zip_code.toString());
+		formData.append("region_id", data.region_id.toString());
+		formData.append("city_id", data.city_id.toString());
+		formData.append("price", data.price.toString());
+		formData.append("area", data.area.toString());
+		formData.append("bedrooms", data.bedrooms.toString());
+		formData.append("description", data.description);
+		if (imageFile) {
+			formData.append("image", imageFile);
+		}
+		formData.append("agent_id", data.agent_id.toString());
+
+		try {
+			await makeRequest.post("/real-estates", formData).then((res) => {
+				console.log("res:", res);
+			});
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (
@@ -130,7 +160,9 @@ const page = () => {
 										className="peer custom-radio"
 										value={0}
 										checked
-										{...register("is_rental")}
+										{...register("is_rental", {
+											valueAsNumber: true,
+										})}
 									/>
 									<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 								</label>
@@ -145,7 +177,9 @@ const page = () => {
 									type="radio"
 									className="peer custom-radio"
 									value={1}
-									{...register("is_rental")}
+									{...register("is_rental", {
+										valueAsNumber: true,
+									})}
 								/>
 								<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 							</label>
@@ -209,7 +243,9 @@ const page = () => {
 									: "მხოლოდ რიცხვები"
 							}
 							style={getInputStyle("price")}
-							register={register("price")}
+							register={register("price", {
+								valueAsNumber: true,
+							})}
 							type="number"
 						/>
 
@@ -221,7 +257,7 @@ const page = () => {
 									: "მხოლოდ რიცხვები"
 							}
 							style={getInputStyle("area")}
-							register={register("area")}
+							register={register("area", { valueAsNumber: true })}
 						/>
 						<CustomInput
 							header={"ოთახების რაოდენობა"}
@@ -231,20 +267,22 @@ const page = () => {
 									: "მხოლოდ რიცხვები"
 							}
 							style={getInputStyle("bedrooms")}
-							register={register("bedrooms")}
+							register={register("bedrooms", {
+								valueAsNumber: true,
+							})}
 						/>
 					</div>
 
 					<CustomTextArea
 						header="აღწერა"
-						style={getInputStyle("bedrooms")}
+						style={getInputStyle("description")}
 						label="მინიმუმ ხუთი სიტყვა"
 						register={register("description")}
 					/>
 					<DropZoneInput
 						header="ატვირთეთ ფოტო*"
 						style={getInputStyle("image")}
-						register={register("image")}
+						onFileChange={handleFileChange}
 					/>
 				</div>
 				<div className="flex flex-col gap-5">

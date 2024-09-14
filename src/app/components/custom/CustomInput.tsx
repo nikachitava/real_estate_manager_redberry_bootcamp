@@ -5,7 +5,7 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 interface ICustomInputProps {
 	header: string;
 	label: string | undefined;
-	register: UseFormRegisterReturn;
+	register?: UseFormRegisterReturn;
 	style?: "default" | "error" | "success";
 	type?: string;
 }
