@@ -31,6 +31,8 @@ const config: Config = {
 				lighttext: "#2D3648",
 				greytext: "#021526B2",
 				orange: "#F93B1D",
+				colorerror: "#F93B1D",
+				colorsuccess: "#45A849",
 			},
 		},
 	},

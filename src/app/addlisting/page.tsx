@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import CustomInput from "../components/custom/CustomInput";
-import { IoCheckmarkSharp } from "react-icons/io5";
 import CustomButtom from "../components/custom/CustomButtom";
 import CustomdropDown from "../components/custom/CustomdropDown";
 import DropZoneInput from "../components/custom/DropZoneInput";
@@ -11,6 +10,7 @@ import { makeRequest } from "../utils/axios";
 import { AddListingFormSchema } from "../FormSchemas/AddListingFormSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CustomTextArea from "../components/custom/CustomTextArea";
 
 type FormFields = z.infer<typeof AddListingFormSchema>;
 
@@ -24,8 +24,15 @@ type TypeCities = TypeRegions & {
 };
 
 const page = () => {
-	const { register, handleSubmit, setValue, watch } = useForm<FormFields>({
+	const {
+		register,
+		handleSubmit,
+		setValue,
+		watch,
+		formState: { errors, touchedFields },
+	} = useForm<FormFields>({
 		resolver: zodResolver(AddListingFormSchema),
+		mode: "onChange",
 	});
 	const [regions, setRegions] = useState<TypeRegions[]>([]);
 	const [cities, setCities] = useState<TypeCities[]>([]);
@@ -63,6 +70,12 @@ const page = () => {
 	const filteredCities = cities.filter(
 		(city) => city.region_id === selectedRegion
 	);
+
+	const getInputStyle = (fieldName: keyof FormFields) => {
+		if (errors[fieldName]) return "error";
+		if (touchedFields[fieldName]) return "success";
+		return "default";
+	};
 
 	return (
 		<div className="container">
@@ -113,15 +126,23 @@ const page = () => {
 					<div className="grid grid-cols-2 gap-4">
 						<CustomInput
 							header={"მისამართი*"}
-							label={"მინიმუმ ორი სიმბოლო"}
-							register={register}
-							name="address"
+							label={
+								errors.address
+									? errors.address.message
+									: "მინიმუმ ორი სიმბოლო"
+							}
+							style={getInputStyle("address")}
+							register={register("address")}
 						/>
 						<CustomInput
 							header={"საფოსტო ინდექსი*"}
-							label={"მხოლოდ რიცხვები"}
-							register={register}
-							name="zip_code"
+							label={
+								errors.zip_code
+									? errors.zip_code.message
+									: "მხოლოდ რიცხვები"
+							}
+							style={getInputStyle("zip_code")}
+							register={register("zip_code")}
 						/>
 					</div>
 					<div className="grid grid-cols-2 gap-4">
@@ -147,42 +168,43 @@ const page = () => {
 					<div className="grid grid-cols-2 gap-4">
 						<CustomInput
 							header={"ფასი"}
-							label={"მხოლოდ რიცხვები"}
-							register={register}
-							name="price"
+							label={
+								errors.price
+									? errors.price.message
+									: "მხოლოდ რიცხვები"
+							}
+							style={getInputStyle("price")}
+							register={register("price")}
+							type="number"
 						/>
 
 						<CustomInput
 							header={"ფართობი"}
-							label={"მხოლოდ რიცხვები"}
-							register={register}
-							name="area"
+							label={
+								errors.area
+									? errors.area.message
+									: "მხოლოდ რიცხვები"
+							}
+							style={getInputStyle("area")}
+							register={register("area")}
 						/>
 						<CustomInput
 							header={"ოთახების რაოდენობა"}
-							label={"მხოლოდ რიცხვები"}
-							register={register}
-							name="bedrooms"
+							label={
+								errors.bedrooms
+									? errors.bedrooms.message
+									: "მხოლოდ რიცხვები"
+							}
+							style={getInputStyle("bedrooms")}
+							register={register("bedrooms")}
 						/>
 					</div>
 
-					<div className="flex flex-col gap-2">
-						<h1 className="medium-text">აღწერა*</h1>
-
-						<textarea
-							className="h-[157px] outline-none p-[10px] rounded-[6px] border-[1px] border-[#808A93] resize-none"
-							{...register("description")}
-						/>
-						<div className="flex items-center gap-2">
-							<IoCheckmarkSharp
-								size={20}
-								className="font-bold text-greytext"
-							/>
-							<label className="small-text">
-								მინიმუმ ხუთი სიტყვა
-							</label>
-						</div>
-					</div>
+					<CustomTextArea
+						header="აღწერა"
+						label="მინიმუმ ხუთი სიტყვა"
+						register={register("description")}
+					/>
 					<DropZoneInput
 						header="ატვირთეთ ფოტო*"
 						{...register("image")}
