@@ -20,7 +20,7 @@ const CustomTextArea: React.FC<ICustomTextAreaProps> = ({
 			<h1 className="medium-text">{header}</h1>
 
 			<textarea
-				className={`h-[157px] outline-none p-[10px] rounded-[6px] border-[1px] border-[#808A93] resize-none 
+				className={`h-[157px] outline-none p-[10px] rounded-[6px] border-[1px] resize-none 
                     ${style === "default" && "!border-[#808A93]"}
 					${style === "error" && "!border-colorerror"} 
 					${style === "success" && "!border-colorsuccess"}`}

@@ -14,6 +14,20 @@ import CustomTextArea from "../components/custom/CustomTextArea";
 
 type FormFields = z.infer<typeof AddListingFormSchema>;
 
+// type FormFields = {
+// 	is_rental: boolean;
+// 	address: string;
+// 	zip_code: number;
+// 	region_id: number;
+// 	city_id: number;
+// 	price: number;
+// 	area: number;
+// 	bedrooms: number;
+// 	description: string;
+// 	image: string;
+// 	agent_id: number;
+// };
+
 type TypeRegions = {
 	id: number;
 	name: string;
@@ -23,13 +37,19 @@ type TypeCities = TypeRegions & {
 	region_id: number;
 };
 
+type TypeAgents = {
+	id: number;
+	name: string;
+	surname: string;
+	image: string;
+};
+
 const page = () => {
 	const {
 		register,
 		handleSubmit,
 		setValue,
 		watch,
-		setError,
 		formState: { errors, touchedFields },
 	} = useForm<FormFields>({
 		resolver: zodResolver(AddListingFormSchema),
@@ -37,6 +57,7 @@ const page = () => {
 	});
 	const [regions, setRegions] = useState<TypeRegions[]>([]);
 	const [cities, setCities] = useState<TypeCities[]>([]);
+	const [agents, setAgents] = useState<TypeAgents[]>([]);
 
 	const fetchRegions = async () => {
 		try {
@@ -56,9 +77,19 @@ const page = () => {
 		}
 	};
 
+	const fetchAgents = async () => {
+		try {
+			const response = await makeRequest.get("/agents");
+			setAgents(response.data);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	useEffect(() => {
 		fetchRegions();
 		fetchCities();
+		fetchAgents();
 	}, []);
 
 	const onSubmit: SubmitHandler<FormFields> = (data) => {
@@ -67,6 +98,7 @@ const page = () => {
 
 	const selectedRegion = watch("region_id");
 	const selectedCity = watch("city_id");
+	const selectedAgent = watch("agent_id");
 
 	const filteredCities = cities.filter(
 		(city) => city.region_id === selectedRegion
@@ -211,7 +243,8 @@ const page = () => {
 					/>
 					<DropZoneInput
 						header="ატვირთეთ ფოტო*"
-						{...register("image")}
+						style={getInputStyle("image")}
+						register={register("image")}
 					/>
 				</div>
 				<div className="flex flex-col gap-5">
@@ -221,8 +254,8 @@ const page = () => {
 						<CustomdropDown
 							addAgent={true}
 							header="აირჩიე"
-							//change
-							value={selectedRegion || ""}
+							dropdownelemets={agents}
+							value={selectedAgent}
 							onChange={(value) => setValue("agent_id", value)}
 						/>
 					</div>
@@ -235,6 +268,7 @@ const page = () => {
 						type="submit"
 					/>
 				</div>
+				{errors.image && <div>{errors.image.message}</div>}
 			</form>
 		</div>
 	);

@@ -70,15 +70,15 @@ const CustomdropDown: React.FC<ICustomdropDownProps> = ({
 				<div className="absolute w-full max-h-[168px] bg-white border-[1px] border-[#808A93] rounded-b-[6px] z-10 top-16 overflow-y-scroll scrollbar-hide">
 					{addAgent && <AddAgentItem />}
 					{dropdownelemets &&
-						dropdownelemets.map((region) => (
+						dropdownelemets.map((element) => (
 							<div
 								className="p-[10px] border-b-[1px] border-[#808A93] small-text"
-								key={region.id}
+								key={element.id}
 								onClick={() =>
-									chooseOption(region.id, region.name)
+									chooseOption(element.id, element.name)
 								}
 							>
-								{region.name}
+								{element.name}
 							</div>
 						))}
 				</div>
