@@ -1,15 +1,8 @@
 import { z } from "zod";
 
-const MAX_SIZE_MB = 1024;
 
 export const AddListingFormSchema = z.object({
-	is_rental: z.preprocess((value) => {
-		if (typeof value === "string") {
-			const numberValue = parseFloat(value);
-			return isNaN(numberValue) ? undefined : numberValue;
-		}
-		return value;
-	}, z.number()),
+	is_rental: z.string(),
 	address: z
 		.string()
 		.min(1, "მისამართის ველი სავალდებულოა")
@@ -21,8 +14,8 @@ export const AddListingFormSchema = z.object({
 		}
 		return value;
 	}, z.number({ required_error: "საფოსტო კოდის ველი სავალდებულოა", invalid_type_error: "შეიყვანეთ მხოლოდ რიცხვები" })),
-	region_id: z.number(),
-	city_id: z.number(),
+	region_id: z.number().min(1, "რეგიონის არჩევა სავალდებულოა"),
+	city_id: z.number().min(1, "ქალაქის არჩევა სავალდებულოა"),
 	price: z.preprocess((value) => {
 		if (typeof value === "string") {
 			const numberValue = parseFloat(value);
@@ -58,5 +51,5 @@ export const AddListingFormSchema = z.object({
 				message: "მინიმუმ ხუთი სიტყვა",
 			}
 		),
-	agent_id: z.number(),
+	agent_id: z.number().min(1, "აგენტის არჩევა სავალდებულოა"),
 });

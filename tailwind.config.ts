@@ -33,6 +33,7 @@ const config: Config = {
 				orange: "#F93B1D",
 				colorerror: "#F93B1D",
 				colorsuccess: "#45A849",
+				secondarygrey: "#808A93"
 			},
 		},
 	},

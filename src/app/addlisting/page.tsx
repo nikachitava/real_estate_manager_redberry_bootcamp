@@ -16,6 +16,20 @@ type FormFields = z.infer<typeof AddListingFormSchema> & {
 	image: File | null;
 };
 
+// type FormFields = {
+// 	is_rental: number;
+// 	address: string;
+// 	zip_code: number;
+// 	region_id: number;
+// 	city_id: number;
+// 	price: number;
+// 	area: number;
+// 	bedrooms: number;
+// 	description: string;
+// 	agent_id: number;
+// 	image: File | null;
+// };
+
 type TypeRegions = {
 	id: number;
 	name: string;
@@ -124,8 +138,9 @@ const page = () => {
 		formData.append("agent_id", data.agent_id.toString());
 
 		try {
-			await makeRequest.post("/real-estates", formData).then(() => {
+			await makeRequest.post("/real-estates", formData).then((res) => {
 				/* here must be redirect to created estate */
+				console.log(res);
 			});
 		} catch (error) {
 			console.log(error);
@@ -146,41 +161,45 @@ const page = () => {
 					<div className="flex items-center gap-[84px]">
 						<div className="flex items-center gap-2">
 							<div className="inline-flex items-center">
-								<label className="relative flex items-center cursor-pointer">
+								<label
+									htmlFor="radio-for-sell"
+									className="relative flex items-center cursor-pointer"
+								>
 									<input
 										type="radio"
+										id="radio-for-sell"
 										className="peer custom-radio"
 										value={0}
-										checked
-										{...register("is_rental", {
-											valueAsNumber: true,
-										})}
+										{...register("is_rental")}
 									/>
 									<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 								</label>
-								<label className="ml-2  cursor-pointer small-text">
+								<label className="ml-2 cursor-pointer small-text">
 									იყიდება
 								</label>
 							</div>
 						</div>
 						<div className="inline-flex items-center">
-							<label className="relative flex items-center cursor-pointer">
+							<label
+								htmlFor="radio-for-rent"
+								className="relative flex items-center cursor-pointer"
+							>
 								<input
 									type="radio"
+									id="radio-for-rent"
 									className="peer custom-radio"
 									value={1}
-									{...register("is_rental", {
-										valueAsNumber: true,
-									})}
+									{...register("is_rental")}
 								/>
 								<span className="absolute bg-slate-800 w-2 h-2 rounded-full opacity-0 peer-checked:opacity-100 transition-opacity duration-200 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></span>
 							</label>
-							<label className="ml-2  cursor-pointer small-text">
+							<label className="ml-2 cursor-pointer small-text">
 								ქირავდება
 							</label>
 						</div>
 					</div>
 				</div>
+
 				<div className="flex flex-col gap-5">
 					<h1 className="medium-text">მდებარეობა</h1>
 
@@ -213,6 +232,7 @@ const page = () => {
 							dropdownelemets={regions}
 							value={selectedRegion}
 							onChange={(value) => setValue("region_id", value)}
+							style={getInputStyle("region_id")}
 						/>
 						<CustomdropDown
 							addAgent={false}
@@ -220,6 +240,8 @@ const page = () => {
 							dropdownelemets={filteredCities}
 							value={selectedCity}
 							onChange={(value) => setValue("city_id", value)}
+							style={getInputStyle("city_id")}
+							otherStyles={selectedRegion ? "" : "disabled"}
 						/>
 					</div>
 				</div>
@@ -291,6 +313,7 @@ const page = () => {
 							dropdownelemets={agents}
 							value={selectedAgent}
 							onChange={(value) => setValue("agent_id", value)}
+							style={getInputStyle("agent_id")}
 						/>
 					</div>
 				</div>
