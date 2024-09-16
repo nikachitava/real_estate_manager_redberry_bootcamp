@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import AgentCard from "@/app/components/custom/AgentCard";
 import CustomButtom from "@/app/components/custom/CustomButtom";
+import { useRouter } from "next/navigation";
 
 const page = ({ params }: { params: { id: string } }) => {
 	const [listing, setListing] = useState<IListing>();
@@ -36,9 +37,17 @@ const page = ({ params }: { params: { id: string } }) => {
 			.padStart(2, "0")}/${date.getFullYear()}`;
 	}
 
+	const router = useRouter();
+
+	const goBack = () => {
+		router.back();
+	};
+
 	return (
 		<div className="container">
 			<svg
+				onClick={goBack}
+				className="cursor-pointer"
 				width="32"
 				height="32"
 				viewBox="0 0 32 32"
@@ -58,6 +67,7 @@ const page = ({ params }: { params: { id: string } }) => {
 							alt="image"
 							width={839}
 							height={670}
+							className="w-[839px] h-[670px]"
 						/>
 						<p className="text-secondarygrey">
 							გამოქვეყნების თარიღი: {formattedDate}
