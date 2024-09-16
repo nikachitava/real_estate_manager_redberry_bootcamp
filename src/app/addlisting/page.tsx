@@ -11,24 +11,10 @@ import { AddListingFormSchema } from "../FormSchemas/AddListingFormSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomTextArea from "../components/custom/CustomTextArea";
+// import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-type FormFields = z.infer<typeof AddListingFormSchema> & {
-	image: File | null;
-};
-
-// type FormFields = {
-// 	is_rental: number;
-// 	address: string;
-// 	zip_code: number;
-// 	region_id: number;
-// 	city_id: number;
-// 	price: number;
-// 	area: number;
-// 	bedrooms: number;
-// 	description: string;
-// 	agent_id: number;
-// 	image: File | null;
-// };
+type FormFields = z.infer<typeof AddListingFormSchema>;
 
 type TypeRegions = {
 	id: number;
@@ -60,7 +46,6 @@ const page = () => {
 	const [regions, setRegions] = useState<TypeRegions[]>([]);
 	const [cities, setCities] = useState<TypeCities[]>([]);
 	const [agents, setAgents] = useState<TypeAgents[]>([]);
-	const [imageFile, setImageFile] = useState<File | null>(null);
 
 	const fetchRegions = async () => {
 		try {
@@ -111,15 +96,7 @@ const page = () => {
 			: "default";
 	};
 
-	const MAX_FILE_SIZE_MB = 1;
-	const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
-
-	const handleFileChange = (file: File) => {
-		if (file.size > MAX_FILE_SIZE_BYTES) {
-			return;
-		}
-		setImageFile(file);
-	};
+	const router = useRouter();
 
 	const onSubmit: SubmitHandler<FormFields> = async (data) => {
 		const formData = new FormData();
@@ -132,16 +109,16 @@ const page = () => {
 		formData.append("area", data.area.toString());
 		formData.append("bedrooms", data.bedrooms.toString());
 		formData.append("description", data.description);
-		if (imageFile) {
-			formData.append("image", imageFile);
+		if (data.image.length > 0) {
+			formData.append("image", data.image[0]);
 		}
 		formData.append("agent_id", data.agent_id.toString());
 
 		try {
-			await makeRequest.post("/real-estates", formData).then((res) => {
-				/* here must be redirect to created estate */
-				console.log(res);
-			});
+			const response = await makeRequest.post("/real-estates", formData);
+
+			const listingID = response.data.id;
+			router.push(`/listing/${listingID}`);
 		} catch (error) {
 			console.log(error);
 		}
@@ -300,7 +277,7 @@ const page = () => {
 					<DropZoneInput
 						header="ატვირთეთ ფოტო*"
 						style={getInputStyle("image")}
-						onFileChange={handleFileChange}
+						register={register("image")}
 					/>
 				</div>
 				<div className="flex flex-col gap-5">

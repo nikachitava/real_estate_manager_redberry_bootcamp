@@ -105,7 +105,6 @@ const AddAgentModal: React.FC<IAddAgentModalProps> = ({ onClose }) => {
 				</div>
 				<DropZoneInput
 					header={"ატვირთეთ ფოტო*"}
-					// onFileChange={handleFileChange}
 					register={register("avatar")}
 					style={getInputStyle("avatar")}
 				/>
