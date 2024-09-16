@@ -3,15 +3,35 @@
 import React, { useContext } from "react";
 import Filter from "./components/custom/Filter";
 import EstatesSection from "./sections/EstatesSection";
-import AddAgentModal from "./components/custom/AddAgentModal";
+import Modal from "./components/custom/Modal";
 import { ModalContext } from "./context/ModalProvider";
+import AddAgentModal from "./components/custom/AddAgentModal";
+import ModalConfirmation from "./components/custom/ModalConfirmation";
 
 const page = () => {
-	const { isModalOpen, handleModal } = useContext(ModalContext);
+	const {
+		isAddagentModalOpen,
+		handleCloseAddAgentModal,
+		isConfirmModalOpen,
+		handleCloseConfirmModal,
+	} = useContext(ModalContext);
 
 	return (
 		<>
-			<AddAgentModal open={isModalOpen} onClose={handleModal} />
+			<Modal
+				isOpen={isAddagentModalOpen}
+				onClose={handleCloseAddAgentModal}
+				closeButton={false}
+			>
+				<AddAgentModal onClose={handleCloseAddAgentModal} />
+			</Modal>
+			<Modal
+				isOpen={isConfirmModalOpen}
+				onClose={handleCloseConfirmModal}
+				closeButton
+			>
+				<ModalConfirmation />
+			</Modal>
 			<main>
 				<Filter />
 				<EstatesSection />

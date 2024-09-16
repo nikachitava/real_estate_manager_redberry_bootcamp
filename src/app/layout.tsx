@@ -38,6 +38,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${firaGo.className} antialiased`}>
 				<ModalProvider>
+					<div id="modal-root" className="container"></div>
 					<Navbar />
 					{children}
 				</ModalProvider>

@@ -3,7 +3,7 @@ import React from "react";
 interface IDropZoneInputProps {
 	header: string;
 	style?: "default" | "error" | "success";
-	onFileChange: (file: File) => void;
+	onFileChange?: (file: File) => void;
 	label?: string | null;
 }
 
@@ -15,7 +15,7 @@ const DropZoneInput: React.FC<IDropZoneInputProps> = ({
 }) => {
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
-		if (file) {
+		if (file && onFileChange) {
 			onFileChange(file);
 		}
 	};
