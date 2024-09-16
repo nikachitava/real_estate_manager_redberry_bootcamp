@@ -22,15 +22,12 @@ const EstatesSection = () => {
 		fetchRealEstates();
 	}, []);
 
-	console.log(realEstates);
-
 	return (
 		<div className="container my-8 grid grid-cols-4 gap-5">
 			{realEstates &&
 				realEstates.map((item) => (
-					<Link href={`/listing/${item.id}`}>
+					<Link href={`/listing/${item.id}`} key={item.id}>
 						<Card
-							key={item.id}
 							id={item.id}
 							address={item.address}
 							zip_code={item.zip_code}

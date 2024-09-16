@@ -1,16 +1,19 @@
 import React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 interface IDropZoneInputProps {
 	header: string;
 	style?: "default" | "error" | "success";
 	onFileChange?: (file: File) => void;
 	label?: string | null;
+	register?: UseFormRegisterReturn;
 }
 
 const DropZoneInput: React.FC<IDropZoneInputProps> = ({
 	header,
 	style = "default",
 	onFileChange,
+	register,
 	label,
 }) => {
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,6 +65,7 @@ const DropZoneInput: React.FC<IDropZoneInputProps> = ({
 						type="file"
 						className="hidden"
 						onChange={handleFileChange}
+						{...register}
 					/>
 				</div>
 			</label>
