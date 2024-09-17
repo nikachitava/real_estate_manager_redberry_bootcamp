@@ -11,7 +11,6 @@ import { AddListingFormSchema } from "../FormSchemas/AddListingFormSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomTextArea from "../components/custom/CustomTextArea";
-// import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 type FormFields = z.infer<typeof AddListingFormSchema>;

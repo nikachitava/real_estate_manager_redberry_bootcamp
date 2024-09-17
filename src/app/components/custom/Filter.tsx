@@ -16,7 +16,7 @@ const Filter = () => {
 	return (
 		<div className="container">
 			<div className="flex justify-between items-center">
-				<div className="flex items-center gap-6">
+				<div className="flex items-center gap-6 rounded-[10px] border-[1px] border-[#DBDBDB] p-[6px]">
 					<DropDown title="რეგიონი">
 						<RegionsContent />
 					</DropDown>
