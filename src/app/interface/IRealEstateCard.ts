@@ -1,9 +1,9 @@
-interface IRegion {
+export interface IRegion {
 	id: number;
 	name: string;
 }
 
-interface ICity {
+export interface ICity {
 	id: number;
 	name: string;
 	region_id: number;
