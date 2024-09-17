@@ -1,8 +1,17 @@
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import CustomButtom from "../CustomButtom";
+import { FilterContext } from "@/app/context/FilterContext";
 
 const PricesContent = () => {
+	const { minPrice, maxPrice, setMinPrice, setMaxPrice } =
+		useContext(FilterContext);
+
+	const onSubmit = () => {
+		console.log("min price", minPrice);
+		console.log("max price", maxPrice);
+	};
+
 	return (
 		<div className="absolute min-w-[382px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white z-10">
 			<h1 className="text-darktext font-bold">ფასის მიხედვით</h1>
@@ -11,6 +20,11 @@ const PricesContent = () => {
 					<input
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
+						type="number"
+						value={minPrice}
+						onChange={(e: any) => {
+							setMinPrice(e.target.value);
+						}}
 					/>
 					<Image
 						src="/images/icons/gel-currency-icon.svg"
@@ -21,8 +35,13 @@ const PricesContent = () => {
 				</div>
 				<div className="flex justify-between items-center w-[155px] border-2 border-[#808A93] p-[10px] rounded-md">
 					<input
-						placeholder="დან"
+						placeholder="მდე"
 						className="border-none outline-none w-[80%]"
+						type="number"
+						value={maxPrice}
+						onChange={(e: any) => {
+							setMaxPrice(e.target.value);
+						}}
 					/>
 					<Image
 						src="/images/icons/gel-currency-icon.svg"
@@ -51,7 +70,7 @@ const PricesContent = () => {
 				</div>
 			</div>
 			<div className="flex justify-end items-center">
-				<CustomButtom title={"არჩევა"} fill />
+				<CustomButtom title={"არჩევა"} fill onClick={onSubmit} />
 			</div>
 		</div>
 	);

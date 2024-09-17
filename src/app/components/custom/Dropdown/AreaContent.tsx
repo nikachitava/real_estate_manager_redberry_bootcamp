@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import CustomButtom from "../CustomButtom";
+import { FilterContext } from "@/app/context/FilterContext";
 
 const AreaContent = () => {
+	const { minArea, maxArea, setMinArea, setMaxArea } =
+		useContext(FilterContext);
+
+	const onSubmit = () => {
+		console.log("min area", minArea);
+		console.log("max area", maxArea);
+	};
 	return (
 		<div className="absolute min-w-[382px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white z-10">
 			<h1>ფასების მიხედვით</h1>
@@ -10,6 +18,11 @@ const AreaContent = () => {
 					<input
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
+						type="number"
+						value={minArea}
+						onChange={(e: any) => {
+							setMinArea(e.target.value);
+						}}
 					/>
 					<span>მ&#178;</span>
 				</div>
@@ -17,6 +30,11 @@ const AreaContent = () => {
 					<input
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
+						type="number"
+						value={maxArea}
+						onChange={(e: any) => {
+							setMaxArea(e.target.value);
+						}}
 					/>
 					<span>მ&#178;</span>
 				</div>
@@ -57,7 +75,7 @@ const AreaContent = () => {
 				</div>
 			</div>
 			<div className="flex justify-end items-center">
-				<CustomButtom title={"არჩევა"} fill />
+				<CustomButtom title={"არჩევა"} fill onClick={onSubmit} />
 			</div>
 		</div>
 	);

@@ -6,12 +6,14 @@ type TypeFilterContext = {
 	selectedRegions: string[];
 	minPrice: string;
 	maxPrice: string;
-	area: string;
+	minArea: string;
+	maxArea: string;
 	bedrooms: string;
 	setSelectedRegions: (region: string[]) => void;
 	setMinPrice: (price: string) => void;
 	setMaxPrice: (price: string) => void;
-	setArea: (area: string) => void;
+	setMinArea: (area: string) => void;
+	setMaxArea: (area: string) => void;
 	setBedrooms: (bedrooms: string) => void;
 };
 
@@ -19,12 +21,14 @@ const CONTEXT_DEFAULT_VALUE: TypeFilterContext = {
 	selectedRegions: [],
 	minPrice: "",
 	maxPrice: "",
-	area: "",
+	minArea: "",
+	maxArea: "",
 	bedrooms: "",
 	setSelectedRegions: () => {},
 	setMinPrice: () => {},
 	setMaxPrice: () => {},
-	setArea: () => {},
+	setMinArea: () => {},
+	setMaxArea: () => {},
 	setBedrooms: () => {},
 };
 
@@ -36,7 +40,8 @@ export const FilterProvider = ({ children }: PropsWithChildren) => {
 	const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 	const [minPrice, setMinPrice] = useState("");
 	const [maxPrice, setMaxPrice] = useState("");
-	const [area, setArea] = useState("");
+	const [minArea, setMinArea] = useState("");
+	const [maxArea, setMaxArea] = useState("");
 	const [bedrooms, setBedrooms] = useState("");
 
 	return (
@@ -45,12 +50,14 @@ export const FilterProvider = ({ children }: PropsWithChildren) => {
 				selectedRegions,
 				minPrice,
 				maxPrice,
-				area,
+				minArea,
+				maxArea,
 				bedrooms,
 				setSelectedRegions,
 				setMinPrice,
 				setMaxPrice,
-				setArea,
+				setMinArea,
+				setMaxArea,
 				setBedrooms,
 			}}
 		>
