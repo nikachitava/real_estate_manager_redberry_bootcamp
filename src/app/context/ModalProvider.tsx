@@ -44,9 +44,6 @@ export const ModalProvider = ({ children }: PropsWithChildren) => {
 	return (
 		<ModalContext.Provider
 			value={{
-				// isModalOpen,
-				// setIsModalOpen,
-				// handleModal,
 				isConfirmModalOpen,
 				handleOpenConfirmModal,
 				handleCloseConfirmModal,
