@@ -57,21 +57,21 @@ const FilterBar: React.FC<FilterBarProps> = ({
 		<div className="flex items-center gap-2">
 			{minPrice != null && maxPrice != null && (
 				<FilterBarItem
-					header={`${minPrice} - ${maxPrice}`}
+					header={`${minPrice}₾ - ${maxPrice}₾`}
 					onRemove={removePriceFilter}
 				/>
 			)}
 
 			{minArea != null && maxArea != null && (
 				<FilterBarItem
-					header={`${minArea} - ${maxArea} მ&#178;`}
+					header={`${minArea}მ² - ${maxArea} მ²`}
 					onRemove={removeAreaFilter}
 				/>
 			)}
 
 			{bedrooms != null && bedrooms > 0 && (
 				<FilterBarItem
-					header={`${bedrooms} ოთახი`}
+					header={`${bedrooms}`}
 					onRemove={removeBedroomsFilter}
 				/>
 			)}
