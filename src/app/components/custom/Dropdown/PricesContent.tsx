@@ -1,16 +1,15 @@
+"use client";
+
 import Image from "next/image";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import CustomButtom from "../CustomButtom";
 import { FilterContext } from "@/app/context/FilterContext";
 
 const PricesContent = () => {
-	const { minPrice, maxPrice, setMinPrice, setMaxPrice } =
-		useContext(FilterContext);
+	const { handleMinMaxPrice } = useContext(FilterContext);
 
-	const onSubmit = () => {
-		console.log("min price", minPrice);
-		console.log("max price", maxPrice);
-	};
+	const [minValue, setMinValue] = useState(0);
+	const [maxValue, setMaxValue] = useState(0);
 
 	return (
 		<div className="absolute min-w-[382px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white z-10">
@@ -21,9 +20,9 @@ const PricesContent = () => {
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
 						type="number"
-						value={minPrice}
+						value={minValue}
 						onChange={(e: any) => {
-							setMinPrice(e.target.value);
+							setMinValue(e.target.value);
 						}}
 					/>
 					<Image
@@ -38,9 +37,9 @@ const PricesContent = () => {
 						placeholder="მდე"
 						className="border-none outline-none w-[80%]"
 						type="number"
-						value={maxPrice}
+						value={maxValue}
 						onChange={(e: any) => {
-							setMaxPrice(e.target.value);
+							setMaxValue(e.target.value);
 						}}
 					/>
 					<Image
@@ -70,7 +69,11 @@ const PricesContent = () => {
 				</div>
 			</div>
 			<div className="flex justify-end items-center">
-				<CustomButtom title={"არჩევა"} fill onClick={onSubmit} />
+				<CustomButtom
+					title={"არჩევა"}
+					fill
+					onClick={() => handleMinMaxPrice(minValue, maxValue)}
+				/>
 			</div>
 		</div>
 	);

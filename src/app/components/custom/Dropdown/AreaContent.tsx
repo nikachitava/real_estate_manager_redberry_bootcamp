@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
+"use client";
+
+import React, { useContext, useState } from "react";
 import CustomButtom from "../CustomButtom";
 import { FilterContext } from "@/app/context/FilterContext";
 
 const AreaContent = () => {
-	const { minArea, maxArea, setMinArea, setMaxArea } =
-		useContext(FilterContext);
+	const { handleMinMaxArea } = useContext(FilterContext);
 
-	const onSubmit = () => {
-		console.log("min area", minArea);
-		console.log("max area", maxArea);
-	};
+	const [minValue, setMinValue] = useState(0);
+	const [maxValue, setMaxValue] = useState(0);
+
 	return (
 		<div className="absolute min-w-[382px] flex flex-col gap-6 mt-[10px] border-[1px] border-[#DBDBDB] p-6 bg-white z-10">
 			<h1>ფასების მიხედვით</h1>
@@ -19,9 +19,9 @@ const AreaContent = () => {
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
 						type="number"
-						value={minArea}
+						value={minValue}
 						onChange={(e: any) => {
-							setMinArea(e.target.value);
+							setMinValue(e.target.value);
 						}}
 					/>
 					<span>მ&#178;</span>
@@ -31,9 +31,9 @@ const AreaContent = () => {
 						placeholder="დან"
 						className="border-none outline-none w-[80%]"
 						type="number"
-						value={maxArea}
+						value={maxValue}
 						onChange={(e: any) => {
-							setMaxArea(e.target.value);
+							setMaxValue(e.target.value);
 						}}
 					/>
 					<span>მ&#178;</span>
@@ -75,7 +75,11 @@ const AreaContent = () => {
 				</div>
 			</div>
 			<div className="flex justify-end items-center">
-				<CustomButtom title={"არჩევა"} fill onClick={onSubmit} />
+				<CustomButtom
+					title={"არჩევა"}
+					fill
+					onClick={() => handleMinMaxArea(minValue, maxValue)}
+				/>
 			</div>
 		</div>
 	);
