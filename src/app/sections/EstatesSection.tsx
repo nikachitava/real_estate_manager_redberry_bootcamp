@@ -72,8 +72,8 @@ const EstatesSection = () => {
 	return (
 		<div className="container my-8">
 			{filteredEstates.length === 0 ? (
-				<p className="text-center text-darktext text-lg font-medium">
-					Nothing is found with these options
+				<p className=" text-[#021526CC] text-[20px]">
+					აღნიშნული მონაცემებით განცხადება არ იძებნება
 				</p>
 			) : (
 				<div className="grid grid-cols-4 gap-5">

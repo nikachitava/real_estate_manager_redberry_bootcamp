@@ -2,11 +2,12 @@
 
 import { IListing } from "@/app/interface/IListing";
 import { makeRequest } from "@/app/utils/axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import AgentCard from "@/app/components/custom/AgentCard";
 import CustomButtom from "@/app/components/custom/CustomButtom";
 import { useRouter } from "next/navigation";
+import { ModalContext } from "@/app/context/ModalProvider";
 
 const page = ({ params }: { params: { id: string } }) => {
 	const [listing, setListing] = useState<IListing>();
@@ -42,6 +43,16 @@ const page = ({ params }: { params: { id: string } }) => {
 	const goBack = () => {
 		router.back();
 	};
+
+	const deleteEstate = async (id: number) => {
+		try {
+			await makeRequest.delete(`/real-estates/${id}`);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const { handleOpenConfirmModal } = useContext(ModalContext);
 
 	return (
 		<div className="container">
@@ -143,6 +154,7 @@ const page = ({ params }: { params: { id: string } }) => {
 								title={"ლისტინგის წაშლა"}
 								fill={false}
 								otherStyles="!text-[#676E76] !border-[#676E76] !rounded-[8px]"
+								onClick={handleOpenConfirmModal}
 							/>
 						</div>
 					</div>

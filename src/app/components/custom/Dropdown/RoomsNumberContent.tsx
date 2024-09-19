@@ -14,7 +14,7 @@ const RoomsNumberContent = () => {
 			<h1>საფასო კატეგორია</h1>
 			<div className="grid grid-cols-3 gap-4">
 				<input
-					className="outline-none w-[80%] border-2 border-[#808A93] rounded-md p-[10px]"
+					className="outline-none w-[80%] border-2 border-[#808A93] rounded-md p-[10px] text-center text-[#02152666] text-[14px]"
 					type="number"
 					value={roomsValue}
 					onChange={(e: any) => {

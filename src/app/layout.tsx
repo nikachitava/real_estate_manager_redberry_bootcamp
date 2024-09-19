@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/custom/Navbar";
 import { ModalProvider } from "./context/ModalProvider";
 import { FilterProvider } from "./context/FilterContext";
+import ModalsContainer from "./components/custom/ModalsContainer";
 
 const firaGo = localFont({
 	src: [
@@ -41,6 +42,7 @@ export default function RootLayout({
 				<FilterProvider>
 					<ModalProvider>
 						<div id="modal-root" className="container"></div>
+						<ModalsContainer />
 						<Navbar />
 						{children}
 					</ModalProvider>
