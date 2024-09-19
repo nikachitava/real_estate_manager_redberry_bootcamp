@@ -22,15 +22,32 @@ const DropdownContent = () => {
 	}, []);
 
 	const { selectedRegions, setSelectedRegions } = useContext(FilterContext);
+	const [choosenRegions, setChoosenRegions] = useState<string[]>([]);
+
+	// const handleSelectRegion = (regionName: string) => {
+	// 	if (selectedRegions.includes(regionName)) {
+	// 		setSelectedRegions(
+	// 			selectedRegions.filter((region) => region !== regionName)
+	// 		);
+	// 	} else {
+	// 		setSelectedRegions([...selectedRegions, regionName]);
+	// 	}
+	// };
 
 	const handleSelectRegion = (regionName: string) => {
-		if (selectedRegions.includes(regionName)) {
-			setSelectedRegions(
-				selectedRegions.filter((region) => region !== regionName)
+		if (choosenRegions.includes(regionName)) {
+			setChoosenRegions(
+				choosenRegions.filter((region) => region !== regionName)
 			);
 		} else {
-			setSelectedRegions([...selectedRegions, regionName]);
+			setChoosenRegions([...choosenRegions, regionName]);
 		}
+	};
+
+	const onSubmit = () => {
+		setSelectedRegions(choosenRegions);
+		console.log("choosenRegions:", choosenRegions);
+		console.log("selected:", selectedRegions);
 	};
 
 	return (
@@ -41,19 +58,13 @@ const DropdownContent = () => {
 					<DropdownRadioItem
 						title={region.name}
 						key={region.id}
-						isSelected={selectedRegions.includes(region.name)}
+						isSelected={choosenRegions.includes(region.name)}
 						onSelect={() => handleSelectRegion(region.name)}
 					/>
 				))}
 			</div>
 			<div className="flex justify-end items-center">
-				<CustomButtom
-					title={"არჩევა"}
-					fill
-					onClick={() => {
-						console.log(selectedRegions);
-					}}
-				/>
+				<CustomButtom title={"არჩევა"} fill onClick={onSubmit} />
 			</div>
 		</div>
 	);

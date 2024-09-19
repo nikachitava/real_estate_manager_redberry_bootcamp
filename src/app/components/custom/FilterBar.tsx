@@ -24,6 +24,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
 		setPriceValuesNull,
 		setAreaValuesNull,
 		setBedroomValueNull,
+		cleanBar,
 	} = useContext(FilterContext);
 
 	const removePriceFilter = () => {
@@ -43,6 +44,14 @@ const FilterBar: React.FC<FilterBarProps> = ({
 			prev.filter((r) => r !== region)
 		);
 	};
+
+	const hasActiveFilters =
+		minPrice != null ||
+		maxPrice != null ||
+		minArea != null ||
+		maxArea != null ||
+		(bedrooms != null && bedrooms > 0) ||
+		selectedRegions.length > 0;
 
 	return (
 		<div className="flex items-center gap-2">
@@ -75,9 +84,14 @@ const FilterBar: React.FC<FilterBarProps> = ({
 				/>
 			))}
 
-			<p className="text-darktext text-[14px] font-medium text-center cursor-pointer">
-				გასუფთავება
-			</p>
+			{hasActiveFilters && (
+				<p
+					className="text-darktext text-[14px] font-medium text-center cursor-pointer"
+					onClick={cleanBar}
+				>
+					გასუფთავება
+				</p>
+			)}
 		</div>
 	);
 };

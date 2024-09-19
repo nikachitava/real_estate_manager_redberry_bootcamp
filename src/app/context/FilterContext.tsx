@@ -15,6 +15,8 @@ type TypeFilterContext = {
 	setAreaValuesNull: () => void;
 	setBedroomValueNull: () => void;
 
+	cleanBar: () => void;
+
 	handleMinMaxPrice: (min: number, max: number) => void;
 	handleMinMaxArea: (min: number, max: number) => void;
 	handleBedrooms: (number: number) => void;
@@ -32,6 +34,8 @@ const CONTEXT_DEFAULT_VALUE: TypeFilterContext = {
 	setPriceValuesNull: () => {},
 	setAreaValuesNull: () => {},
 	setBedroomValueNull: () => {},
+
+	cleanBar: () => {},
 
 	handleMinMaxPrice: () => {},
 	handleMinMaxArea: () => {},
@@ -78,6 +82,13 @@ export const FilterProvider: React.FC<{ children: ReactNode }> = ({
 		setBedrooms(null);
 	};
 
+	const cleanBar = () => {
+		setSelectedRegions([]);
+		setPriceValuesNull();
+		setAreaValuesNull();
+		setBedroomValueNull();
+	};
+
 	return (
 		<FilterContext.Provider
 			value={{
@@ -91,6 +102,7 @@ export const FilterProvider: React.FC<{ children: ReactNode }> = ({
 				setAreaValuesNull,
 				setBedroomValueNull,
 				setSelectedRegions,
+				cleanBar,
 				handleMinMaxPrice,
 				handleMinMaxArea,
 				handleBedrooms,
