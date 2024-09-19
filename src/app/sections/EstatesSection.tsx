@@ -36,26 +36,22 @@ const EstatesSection = () => {
 			filtered = filtered.filter((estate) =>
 				selectedRegions.includes(estate.city.region.name)
 			);
-			console.log("shevida regionebis filtshi");
 		}
 
 		if (minPrice != null && maxPrice != null) {
 			filtered = filtered.filter(
 				(estate) => estate.price >= minPrice && estate.price <= maxPrice
 			);
-			console.log("shevida fasebis filtshi");
 		}
 
 		if (minArea != null && maxArea != null) {
 			filtered = filtered.filter(
 				(estate) => estate.area >= minArea && estate.area <= maxArea
 			);
-			console.log("shevida fartobis filtshi");
 		}
 
 		if (bedrooms != null && bedrooms > 0) {
 			filtered = filtered.filter((estate) => estate.bedrooms == bedrooms);
-			console.log("shevida otaxebis filtshi");
 		}
 
 		setFilteredEstates(filtered);

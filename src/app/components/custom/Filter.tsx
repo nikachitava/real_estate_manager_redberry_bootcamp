@@ -9,9 +9,13 @@ import { IoMdAdd } from "react-icons/io";
 import FilterBar from "./FilterBar";
 import Link from "next/link";
 import { ModalContext } from "@/app/context/ModalProvider";
+import { FilterContext } from "@/app/context/FilterContext";
 
 const Filter = () => {
 	const { handleAddAgentModal } = useContext(ModalContext);
+
+	const { selectedRegions, minPrice, maxPrice, minArea, maxArea, bedrooms } =
+		useContext(FilterContext);
 
 	return (
 		<div className="container">
@@ -49,7 +53,14 @@ const Filter = () => {
 				</div>
 			</div>
 			<div className="mt-4">
-				<FilterBar />
+				<FilterBar
+					minPrice={minPrice}
+					maxPrice={maxPrice}
+					minArea={minArea}
+					maxArea={maxArea}
+					bedrooms={bedrooms}
+					selectedRegions={selectedRegions}
+				/>
 			</div>
 		</div>
 	);

@@ -1,15 +1,20 @@
 "use client";
 
-import { createContext, PropsWithChildren, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 type TypeFilterContext = {
 	selectedRegions: string[];
+	setSelectedRegions: React.Dispatch<React.SetStateAction<string[]>>;
 	minPrice: null | number;
 	maxPrice: null | number;
 	minArea: null | number;
 	maxArea: null | number;
 	bedrooms: null | number;
-	setSelectedRegions: (region: string[]) => void;
+
+	setPriceValuesNull: () => void;
+	setAreaValuesNull: () => void;
+	setBedroomValueNull: () => void;
+
 	handleMinMaxPrice: (min: number, max: number) => void;
 	handleMinMaxArea: (min: number, max: number) => void;
 	handleBedrooms: (number: number) => void;
@@ -17,22 +22,29 @@ type TypeFilterContext = {
 
 const CONTEXT_DEFAULT_VALUE: TypeFilterContext = {
 	selectedRegions: [],
+	setSelectedRegions: () => {},
 	minPrice: null,
 	maxPrice: null,
 	minArea: null,
 	maxArea: null,
 	bedrooms: null,
-	setSelectedRegions: () => {},
-	handleMinMaxPrice: (min: number, max: number) => {},
-	handleMinMaxArea: (min: number, max: number) => {},
-	handleBedrooms: (number: number) => {},
+
+	setPriceValuesNull: () => {},
+	setAreaValuesNull: () => {},
+	setBedroomValueNull: () => {},
+
+	handleMinMaxPrice: () => {},
+	handleMinMaxArea: () => {},
+	handleBedrooms: () => {},
 };
 
 export const FilterContext = createContext<TypeFilterContext>(
 	CONTEXT_DEFAULT_VALUE
 );
 
-export const FilterProvider = ({ children }: PropsWithChildren) => {
+export const FilterProvider: React.FC<{ children: ReactNode }> = ({
+	children,
+}) => {
 	const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
 	const [minPrice, setMinPrice] = useState<null | number>(null);
 	const [maxPrice, setMaxPrice] = useState<null | number>(null);
@@ -54,6 +66,18 @@ export const FilterProvider = ({ children }: PropsWithChildren) => {
 		setBedrooms(number);
 	};
 
+	const setPriceValuesNull = () => {
+		setMinPrice(null), setMaxPrice(null);
+	};
+
+	const setAreaValuesNull = () => {
+		setMinArea(null), setMaxArea(null);
+	};
+
+	const setBedroomValueNull = () => {
+		setBedrooms(null);
+	};
+
 	return (
 		<FilterContext.Provider
 			value={{
@@ -63,6 +87,9 @@ export const FilterProvider = ({ children }: PropsWithChildren) => {
 				minArea,
 				maxArea,
 				bedrooms,
+				setPriceValuesNull,
+				setAreaValuesNull,
+				setBedroomValueNull,
 				setSelectedRegions,
 				handleMinMaxPrice,
 				handleMinMaxArea,
