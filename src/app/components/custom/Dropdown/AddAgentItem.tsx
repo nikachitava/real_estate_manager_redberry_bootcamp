@@ -1,6 +1,13 @@
+import { ModalContext } from "@/app/context/ModalProvider";
+import { useContext } from "react";
+
 const AddAgentItem = () => {
+	const { handleAddAgentModal } = useContext(ModalContext);
 	return (
-		<div className="flex items-center gap-2 p-[10px] border-b-[1px] border-[#808A93]">
+		<div
+			className="flex items-center gap-2 p-[10px] border-b-[1px] border-[#808A93]"
+			onClick={handleAddAgentModal}
+		>
 			<svg
 				width="20"
 				height="20"
