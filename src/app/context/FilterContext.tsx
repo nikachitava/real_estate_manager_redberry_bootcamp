@@ -49,24 +49,45 @@ export const FilterContext = createContext<TypeFilterContext>(
 export const FilterProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
-	const [selectedRegions, setSelectedRegions] = useState<string[]>(() => {
-		return JSON.parse(sessionStorage.getItem("selectedRegions") || "[]");
-	});
-	const [minPrice, setMinPrice] = useState<null | number>(() => {
-		return JSON.parse(sessionStorage.getItem("minPrice") || "null");
-	});
-	const [maxPrice, setMaxPrice] = useState<null | number>(() => {
-		return JSON.parse(sessionStorage.getItem("maxPrice") || "null");
-	});
-	const [minArea, setMinArea] = useState<null | number>(() => {
-		return JSON.parse(sessionStorage.getItem("minArea") || "null");
-	});
-	const [maxArea, setMaxArea] = useState<null | number>(() => {
-		return JSON.parse(sessionStorage.getItem("maxArea") || "null");
-	});
-	const [bedrooms, setBedrooms] = useState<null | number>(() => {
-		return JSON.parse(sessionStorage.getItem("bedrooms") || "null");
-	});
+	const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+	const [minPrice, setMinPrice] = useState<null | number>(null);
+	const [maxPrice, setMaxPrice] = useState<null | number>(null);
+	const [minArea, setMinArea] = useState<null | number>(null);
+	const [maxArea, setMaxArea] = useState<null | number>(null);
+	const [bedrooms, setBedrooms] = useState<null | number>(null);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setSelectedRegions(
+				JSON.parse(sessionStorage.getItem("selectedRegions") || "[]")
+			);
+			setMinPrice(
+				JSON.parse(sessionStorage.getItem("minPrice") || "null")
+			);
+			setMaxPrice(
+				JSON.parse(sessionStorage.getItem("maxPrice") || "null")
+			);
+			setMinArea(JSON.parse(sessionStorage.getItem("minArea") || "null"));
+			setMaxArea(JSON.parse(sessionStorage.getItem("maxArea") || "null"));
+			setBedrooms(
+				JSON.parse(sessionStorage.getItem("bedrooms") || "null")
+			);
+		}
+	}, []);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			sessionStorage.setItem(
+				"selectedRegions",
+				JSON.stringify(selectedRegions)
+			);
+			sessionStorage.setItem("minPrice", JSON.stringify(minPrice));
+			sessionStorage.setItem("maxPrice", JSON.stringify(maxPrice));
+			sessionStorage.setItem("minArea", JSON.stringify(minArea));
+			sessionStorage.setItem("maxArea", JSON.stringify(maxArea));
+			sessionStorage.setItem("bedrooms", JSON.stringify(bedrooms));
+		}
+	}, [selectedRegions, minPrice, maxPrice, minArea, maxArea, bedrooms]);
 
 	const handleMinMaxPrice = (min: number, max: number) => {
 		setMinPrice(min);

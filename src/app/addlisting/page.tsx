@@ -140,10 +140,10 @@ const page = () => {
 		try {
 			const response = await makeRequest.post("/real-estates", formData);
 
+			sessionStorage.removeItem("listingFormData");
+
 			const listingID = response.data.id;
 			router.push(`/listing/${listingID}`);
-
-			sessionStorage.removeItem("listingFormData");
 		} catch (error) {
 			console.log(error);
 		}
