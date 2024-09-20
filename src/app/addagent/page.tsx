@@ -6,6 +6,7 @@ import DropZoneInput from "../components/custom/DropZoneInput";
 import CustomButtom from "../components/custom/CustomButtom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { makeRequest } from "../utils/axios";
+import { useRouter } from "next/navigation";
 
 interface FormFields {
 	name: string;
@@ -16,6 +17,7 @@ interface FormFields {
 }
 
 const page = () => {
+	const router = useRouter();
 	const [avatar, setAvatar] = useState<File | null>(null);
 
 	const { register, handleSubmit } = useForm<FormFields>();
@@ -30,12 +32,10 @@ const page = () => {
 			formData.append("avatar", avatar);
 		}
 
-		console.log("avatar:", avatar);
-
 		try {
-			await makeRequest.post("/agents", formData).then((res) => {
-				console.log("res:", res);
-			});
+			await makeRequest.post("/agents", formData);
+			sessionStorage.removeItem("agentForm");
+			router.push("/");
 		} catch (error) {
 			console.log(error);
 		}
