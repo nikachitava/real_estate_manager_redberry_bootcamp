@@ -42,6 +42,7 @@ const page = () => {
 		resolver: zodResolver(AddListingFormSchema),
 		mode: "onChange",
 	});
+
 	const [regions, setRegions] = useState<TypeRegions[]>([]);
 	const [cities, setCities] = useState<TypeCities[]>([]);
 	const [agents, setAgents] = useState<TypeAgents[]>([]);
@@ -79,6 +80,24 @@ const page = () => {
 		fetchAgents();
 	}, []);
 
+	useEffect(() => {
+		const savedForm = JSON.parse(
+			sessionStorage.getItem("listingFormData") || "{}"
+		);
+
+		Object.keys(savedForm).forEach((field) => {
+			setValue(field as keyof FormFields, savedForm[field]);
+		});
+	}, [setValue]);
+
+	const watchAllFields = watch();
+	useEffect(() => {
+		sessionStorage.setItem(
+			"listingFormData",
+			JSON.stringify(watchAllFields)
+		);
+	}, [watchAllFields]);
+
 	const selectedRegion = watch("region_id");
 	const selectedCity = watch("city_id");
 	const selectedAgent = watch("agent_id");
@@ -96,6 +115,11 @@ const page = () => {
 	};
 
 	const router = useRouter();
+
+	const cancelCreateListing = () => {
+		sessionStorage.removeItem("listingFormData");
+		router.push("/");
+	};
 
 	const onSubmit: SubmitHandler<FormFields> = async (data) => {
 		const formData = new FormData();
@@ -118,6 +142,8 @@ const page = () => {
 
 			const listingID = response.data.id;
 			router.push(`/listing/${listingID}`);
+
+			sessionStorage.removeItem("listingFormData");
 		} catch (error) {
 			console.log(error);
 		}
@@ -294,7 +320,12 @@ const page = () => {
 					</div>
 				</div>
 				<div className="flex items-center justify-end gap-4 mt-">
-					<CustomButtom title={"გაუქმება"} fill={false} />
+					<CustomButtom
+						title={"გაუქმება"}
+						fill={false}
+						type="button"
+						onClick={cancelCreateListing}
+					/>
 					<CustomButtom
 						title={"დაამატე ლისტინგი"}
 						fill

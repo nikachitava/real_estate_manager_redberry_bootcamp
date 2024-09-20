@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomInput from "./CustomInput";
 import DropZoneInput from "./DropZoneInput";
 import CustomButtom from "./CustomButtom";
@@ -19,10 +19,27 @@ const AddAgentModal: React.FC<IAddAgentModalProps> = ({ onClose }) => {
 		register,
 		handleSubmit,
 		formState: { errors, touchedFields },
+		setValue,
+		watch,
 	} = useForm<FormFields>({
 		resolver: zodResolver(addAgentFormSchema),
 		mode: "onChange",
 	});
+
+	useEffect(() => {
+		const savedForm = JSON.parse(
+			sessionStorage.getItem("agentForm") || "{}"
+		);
+
+		Object.keys(savedForm).forEach((field) => {
+			setValue(field as keyof FormFields, savedForm[field]);
+		});
+	}, [setValue]);
+
+	const watchAllFields = watch();
+	useEffect(() => {
+		sessionStorage.setItem("agentForm", JSON.stringify(watchAllFields));
+	}, [watchAllFields]);
 
 	const getInputStyle = (fieldName: keyof FormFields) => {
 		return errors[fieldName]
@@ -44,10 +61,11 @@ const AddAgentModal: React.FC<IAddAgentModalProps> = ({ onClose }) => {
 				formData.append("avatar", data.avatar[0]);
 			}
 			await makeRequest.post("/agents", formData);
+
+			localStorage.removeItem("agentFormData");
 		} catch (error) {
 			console.log(error);
 		}
-		console.log(formData);
 	};
 
 	return (

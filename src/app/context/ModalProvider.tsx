@@ -32,6 +32,7 @@ export const ModalProvider = ({ children }: PropsWithChildren) => {
 		setIsAddAgentModalOpen(true);
 	};
 	const handleCloseAddAgentModal = () => {
+		localStorage.removeItem("agentFormData");
 		setIsAddAgentModalOpen(false);
 	};
 
