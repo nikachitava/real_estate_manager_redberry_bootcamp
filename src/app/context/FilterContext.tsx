@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 type TypeFilterContext = {
 	selectedRegions: string[];
@@ -49,12 +49,24 @@ export const FilterContext = createContext<TypeFilterContext>(
 export const FilterProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
-	const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
-	const [minPrice, setMinPrice] = useState<null | number>(null);
-	const [maxPrice, setMaxPrice] = useState<null | number>(null);
-	const [minArea, setMinArea] = useState<null | number>(null);
-	const [maxArea, setMaxArea] = useState<null | number>(null);
-	const [bedrooms, setBedrooms] = useState<null | number>(null);
+	const [selectedRegions, setSelectedRegions] = useState<string[]>(() => {
+		return JSON.parse(sessionStorage.getItem("selectedRegions") || "[]");
+	});
+	const [minPrice, setMinPrice] = useState<null | number>(() => {
+		return JSON.parse(sessionStorage.getItem("minPrice") || "null");
+	});
+	const [maxPrice, setMaxPrice] = useState<null | number>(() => {
+		return JSON.parse(sessionStorage.getItem("maxPrice") || "null");
+	});
+	const [minArea, setMinArea] = useState<null | number>(() => {
+		return JSON.parse(sessionStorage.getItem("minArea") || "null");
+	});
+	const [maxArea, setMaxArea] = useState<null | number>(() => {
+		return JSON.parse(sessionStorage.getItem("maxArea") || "null");
+	});
+	const [bedrooms, setBedrooms] = useState<null | number>(() => {
+		return JSON.parse(sessionStorage.getItem("bedrooms") || "null");
+	});
 
 	const handleMinMaxPrice = (min: number, max: number) => {
 		setMinPrice(min);
@@ -88,6 +100,18 @@ export const FilterProvider: React.FC<{ children: ReactNode }> = ({
 		setAreaValuesNull();
 		setBedroomValueNull();
 	};
+
+	useEffect(() => {
+		sessionStorage.setItem(
+			"selectedRegions",
+			JSON.stringify(selectedRegions)
+		);
+		sessionStorage.setItem("minPrice", JSON.stringify(minPrice));
+		sessionStorage.setItem("maxPrice", JSON.stringify(maxPrice));
+		sessionStorage.setItem("minArea", JSON.stringify(minArea));
+		sessionStorage.setItem("maxArea", JSON.stringify(maxArea));
+		sessionStorage.setItem("bedrooms", JSON.stringify(bedrooms));
+	}, [selectedRegions, minPrice, maxPrice, minArea, maxArea, bedrooms]);
 
 	return (
 		<FilterContext.Provider
