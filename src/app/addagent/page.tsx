@@ -67,10 +67,7 @@ const page = () => {
 				label="ჩაწერეთ ტელეფონის ნომერი"
 				register={register("phone")}
 			/>
-			<DropZoneInput
-				header="ატვირთეთ ფოტო"
-				onFileChange={handleFileChange}
-			/>
+			<DropZoneInput header="ატვირთეთ ფოტო" />
 			<CustomButtom title={"დაამატე ლისტინგი"} fill type="submit" />
 		</form>
 	);
