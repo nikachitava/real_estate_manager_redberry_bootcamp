@@ -25,9 +25,9 @@ const ModalsContainer = () => {
 			<Modal
 				isOpen={isConfirmModalOpen}
 				onClose={handleCloseConfirmModal}
-				closeButton
+				closeButton={false}
 			>
-				<ModalConfirmation />
+				<ModalConfirmation onClose={handleCloseConfirmModal} />
 			</Modal>
 		</>
 	);

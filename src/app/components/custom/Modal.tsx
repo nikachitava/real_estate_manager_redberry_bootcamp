@@ -16,13 +16,7 @@ const Modal: React.FC<IModalProps> = ({
 	children,
 	closeButton,
 }) => {
-	if (!isOpen) return null;
-
 	const modalRoot = document.getElementById("modal-root");
-
-	if (!modalRoot) {
-		return null;
-	}
 
 	useEffect(() => {
 		if (isOpen) {
@@ -35,6 +29,10 @@ const Modal: React.FC<IModalProps> = ({
 			document.body.style.overflow = "auto";
 		};
 	}, [isOpen]);
+
+	if (!modalRoot || !isOpen) {
+		return null;
+	}
 
 	return ReactDOM.createPortal(
 		<div

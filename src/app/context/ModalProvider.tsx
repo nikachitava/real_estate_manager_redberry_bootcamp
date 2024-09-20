@@ -31,7 +31,9 @@ export const ModalProvider = ({ children }: PropsWithChildren) => {
 		handleCloseConfirmModal();
 		setIsAddAgentModalOpen(true);
 	};
-	const handleCloseAddAgentModal = () => setIsAddAgentModalOpen(false);
+	const handleCloseAddAgentModal = () => {
+		setIsAddAgentModalOpen(false);
+	};
 
 	const handleOpenConfirmModal = () => {
 		handleCloseAddAgentModal();
