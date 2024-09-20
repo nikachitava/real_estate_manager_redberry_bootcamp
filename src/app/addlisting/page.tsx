@@ -332,7 +332,6 @@ const page = () => {
 						type="submit"
 					/>
 				</div>
-				{errors.image && <div>{errors.image.message}</div>}
 			</form>
 		</div>
 	);

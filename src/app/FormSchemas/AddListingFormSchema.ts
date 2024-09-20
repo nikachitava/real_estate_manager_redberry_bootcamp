@@ -52,7 +52,11 @@ export const AddListingFormSchema = z.object({
 			}
 		),
 	agent_id: z.number().min(1, "აგენტის არჩევა სავალდებულოა"),
-	image: z.instanceof(FileList).refine(files => files.length > 0, {
-		message: "ფოტო აუცილებელია",
+	// image: z.instanceof(FileList).refine(files => files.length > 0, {
+	// 	message: "ფოტო აუცილებელია",
+	// }),
+	image:z.any()
+	.refine((files) => typeof window !== 'undefined' && files instanceof FileList && files.length > 0, {
+		message: "ფოტოს ატვირთვა აუცილებელია",
 	}),
 });

@@ -15,7 +15,12 @@ export const addAgentFormSchema = z.object({
 		.string({ required_error: "ეს ველი აუცილებელია" })
 		.email("ელ ფოსტა უნდა იყოს ვალიდური")
 		.regex(/^.+@redberry\.ge$/, "ელ ფოსტა უნდა მთავრდებოდეს @redberry.ge"),
-	avatar: z.instanceof(FileList).refine(files => files.length > 0, {
-			message: "ფოტო აუცილებელია",
+	// avatar: z.instanceof(FileList).refine(files => files.length > 0, {
+	// 		message: "ფოტო აუცილებელია",
+	// 	}),
+	avatar: z
+		.any()
+		.refine((files) => typeof window !== 'undefined' && files instanceof FileList && files.length > 0, {
+			message: "ფოტოს ატვირთვა აუცილებელია",
 		}),
 });

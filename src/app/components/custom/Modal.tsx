@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 
 interface IModalProps {
@@ -16,7 +16,14 @@ const Modal: React.FC<IModalProps> = ({
 	children,
 	closeButton,
 }) => {
-	const modalRoot = document.getElementById("modal-root");
+	const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			const root = document.getElementById("modal-root");
+			setModalRoot(root);
+		}
+	}, []);
 
 	useEffect(() => {
 		if (isOpen) {
