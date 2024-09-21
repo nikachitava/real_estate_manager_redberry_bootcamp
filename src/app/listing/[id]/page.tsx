@@ -8,6 +8,7 @@ import AgentCard from "@/app/components/custom/AgentCard";
 import CustomButtom from "@/app/components/custom/CustomButtom";
 import { useRouter } from "next/navigation";
 import { ModalContext } from "@/app/context/ModalProvider";
+import CarouselContainer from "@/app/components/custom/CarouselContainer";
 
 const page = ({ params }: { params: { id: string } }) => {
 	const [listing, setListing] = useState<IListing>();
@@ -160,6 +161,9 @@ const page = ({ params }: { params: { id: string } }) => {
 					</div>
 				</div>
 			)}
+			<div>
+				<CarouselContainer />
+			</div>
 		</div>
 	);
 };
