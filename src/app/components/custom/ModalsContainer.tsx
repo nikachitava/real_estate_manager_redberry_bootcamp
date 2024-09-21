@@ -5,6 +5,8 @@ import { useContext } from "react";
 import Modal from "./Modal";
 import AddAgentModal from "./AddAgentModal";
 import ModalConfirmation from "./ModalConfirmation";
+import { makeRequest } from "@/app/utils/axios";
+import { useParams, useRouter } from "next/navigation";
 
 const ModalsContainer = () => {
 	const {
@@ -13,6 +15,22 @@ const ModalsContainer = () => {
 		isConfirmModalOpen,
 		handleCloseConfirmModal,
 	} = useContext(ModalContext);
+
+	const params = useParams();
+	const currentListingID = Number(params.id);
+
+	const router = useRouter();
+
+	const deleteEstate = async (id: number) => {
+		try {
+			await makeRequest.delete(`/real-estates/${id}`);
+			handleCloseConfirmModal();
+			router.push("/");
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<>
 			<Modal
@@ -27,7 +45,12 @@ const ModalsContainer = () => {
 				onClose={handleCloseConfirmModal}
 				closeButton={false}
 			>
-				<ModalConfirmation onClose={handleCloseConfirmModal} />
+				<ModalConfirmation
+					onClose={handleCloseConfirmModal}
+					onSubmit={() => {
+						deleteEstate(currentListingID);
+					}}
+				/>
 			</Modal>
 		</>
 	);

@@ -45,14 +45,6 @@ const page = ({ params }: { params: { id: string } }) => {
 		router.back();
 	};
 
-	const deleteEstate = async (id: number) => {
-		try {
-			await makeRequest.delete(`/real-estates/${id}`);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const { handleOpenConfirmModal } = useContext(ModalContext);
 
 	return (
